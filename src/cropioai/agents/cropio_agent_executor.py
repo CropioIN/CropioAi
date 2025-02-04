@@ -301,7 +301,8 @@ class CropioAgentExecutor(CropioAgentExecutorMixin):
         ):
             agent_role = self.agent.role.split("\n")[0]
             self._printer.print(
-                content=f"\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                content=f"# Agent: \033[1m\033[92m{agent_role}\033[00m",
+                color = "bold_orange"
             )
             description = (
                 getattr(self.task, "description") if self.task else "Not Found"
@@ -325,24 +326,26 @@ class CropioAgentExecutor(CropioAgentExecutorMixin):
                     ensure_ascii=False,
                 )
                 self._printer.print(
-                    content=f"\n\n\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                    content=f"# Agent: \033[1m\033[92m{agent_role}\033[00m",
+                    color = "bold_orange"
                 )
                 if thought and thought != "":
                     self._printer.print(
                         content=f"\033[95m## Thought:\033[00m \033[92m{thought}\033[00m"
                     )
                 self._printer.print(
-                    content=f"\033[95m## Using tool:\033[00m \033[92m{formatted_answer.tool}\033[00m"
+                    content = f"\033[38;5;214m## Using tool:\033[00m \033[38;5;154m{formatted_answer.tool}\033[00m"
                 )
                 self._printer.print(
-                    content=f"\033[95m## Tool Input:\033[00m \033[92m\n{formatted_json}\033[00m"
+                    content = f"\033[38;5;214m## Tool Input:\033[00m \033[38;5;154m\n{formatted_json}\033[00m"
                 )
                 self._printer.print(
-                    content=f"\033[95m## Tool Output:\033[00m \033[92m\n{formatted_answer.result}\033[00m"
+                    content = f"\033[38;5;214m## Tool Output:\033[00m \033[38;5;154m\n{formatted_answer.result}\033[00m"
                 )
             elif isinstance(formatted_answer, AgentFinish):
                 self._printer.print(
-                    content=f"\n\n\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                    content=f"# Agent: \033[1m\033[92m{agent_role}\033[00m",
+                    color = "bold_orange"
                 )
                 self._printer.print(
                     content=f"\033[95m## Final Answer:\033[00m \033[92m\n{formatted_answer.output}\033[00m\n\n"

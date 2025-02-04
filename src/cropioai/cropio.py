@@ -101,7 +101,7 @@ class Cropio(BaseModel):
     _train_iteration: Optional[int] = PrivateAttr()
     _inputs: Optional[Dict[str, Any]] = PrivateAttr(default=None)
     _logging_color: str = PrivateAttr(
-        default="bold_purple",
+        default="bold_orange",
     )
     _task_output_handler: TaskOutputStorageHandler = PrivateAttr(
         default_factory=TaskOutputStorageHandler
@@ -527,7 +527,7 @@ class Cropio(BaseModel):
         """Starts the cropio to work on its assigned tasks."""
         self._execution_span = self._telemetry.cropio_execution_span(self, inputs)
         self._task_output_handler.reset()
-        self._logging_color = "bold_purple"
+        self._logging_color = "bold_orange"
 
         if inputs is not None:
             self._inputs = inputs

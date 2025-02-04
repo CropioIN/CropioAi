@@ -993,7 +993,7 @@ class Flow(Generic[T], metaclass=FlowMeta):
         Args:
             message: The message to log
             color: Color to use for console output (default: yellow)
-                  Available colors: purple, red, bold_green, bold_purple,
+                  Available colors: purple, red, bold_green, bold_orange,
                   bold_blue, yellow, yellow
             level: Log level to use (default: info)
                   Supported levels: info, warning

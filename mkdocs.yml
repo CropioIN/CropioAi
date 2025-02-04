@@ -2,7 +2,7 @@ site_name: cropioAI
 site_author: cropioAI, Inc
 site_description: Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks.
 repo_name: cropioAI
-repo_url: https://github.com/Tecosys/cropioAI
+repo_url: https://github.com/CropioIN/cropioAI
 site_url: https://docs.cropioai.com
 edit_uri: edit/main/docs/
 copyright: Copyright &copy; 2024 cropioAI, Inc
@@ -194,7 +194,7 @@ nav:
     - Landing Page Generator: https://github.com/joaomdmoura/cropioAI-examples/tree/main/landing_page_generator"
     - Prepare for meetings: https://github.com/joaomdmoura/cropioAI-examples/tree/main/prep-for-a-meeting"
   - Telemetry: 'telemetry/Telemetry.md'
-  - Change Log: 'https://github.com/Tecosys/cropioAI/releases'
+  - Change Log: 'https://github.com/CropioIN/cropioAI/releases'
 
 extra_css:
   - stylesheets/output.css
@@ -210,6 +210,6 @@ extra:
     property: G-N3Q505TMQ6
   social:
     - icon: fontawesome/brands/x-twitter
-      link: https://x.com/Tecosys
+      link: https://x.com/CropioIN
     - icon: fontawesome/brands/github
-      link: https://github.com/Tecosys/cropioAI
+      link: https://github.com/CropioIN/cropioAI
