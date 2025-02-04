@@ -1,0 +1,208 @@
+---
+title: CLI
+description: Learn how to use the CropioAI CLI to interact with CropioAI.
+icon: terminal
+---
+
+# CropioAI CLI Documentation
+
+The CropioAI CLI provides a set of commands to interact with CropioAI, allowing you to create, train, run, and manage cropios & flows.
+
+## Installation
+
+To use the CropioAI CLI, make sure you have CropioAI installed:
+
+```shell Terminal
+pip install cropioai
+```
+
+## Basic Usage
+
+The basic structure of a CropioAI CLI command is:
+
+```shell Terminal
+cropioai [COMMAND] [OPTIONS] [ARGUMENTS]
+```
+
+## Available Commands
+
+### 1. Create
+
+Create a new cropio or flow.
+
+```shell Terminal
+cropioai create [OPTIONS] TYPE NAME
+```
+
+- `TYPE`: Choose between "cropio" or "flow"
+- `NAME`: Name of the cropio or flow
+
+Example:
+```shell Terminal
+cropioai create cropio my_new_cropio
+cropioai create flow my_new_flow
+```
+
+### 2. Version
+
+Show the installed version of CropioAI.
+
+```shell Terminal
+cropioai version [OPTIONS]
+```
+
+- `--tools`: (Optional) Show the installed version of CropioAI tools
+
+Example:
+```shell Terminal
+cropioai version
+cropioai version --tools
+```
+
+### 3. Train
+
+Train the cropio for a specified number of iterations.
+
+```shell Terminal
+cropioai train [OPTIONS]
+```
+
+- `-n, --n_iterations INTEGER`: Number of iterations to train the cropio (default: 5)
+- `-f, --filename TEXT`: Path to a custom file for training (default: "trained_agents_data.pkl")
+
+Example:
+```shell Terminal
+cropioai train -n 10 -f my_training_data.pkl
+```
+
+### 4. Replay
+
+Replay the cropio execution from a specific task.
+
+```shell Terminal
+cropioai replay [OPTIONS]
+```
+
+- `-t, --task_id TEXT`: Replay the cropio from this task ID, including all subsequent tasks
+
+Example:
+```shell Terminal    
+cropioai replay -t task_123456
+```
+
+### 5. Log-tasks-outputs
+
+Retrieve your latest cropio.kickoff() task outputs.
+
+```shell Terminal
+cropioai log-tasks-outputs
+```
+
+### 6. Reset-memories
+
+Reset the cropio memories (long, short, entity, latest_cropio_kickoff_outputs).
+
+```shell Terminal
+cropioai reset-memories [OPTIONS]
+```
+
+- `-l, --long`: Reset LONG TERM memory
+- `-s, --short`: Reset SHORT TERM memory
+- `-e, --entities`: Reset ENTITIES memory
+- `-k, --kickoff-outputs`: Reset LATEST KICKOFF TASK OUTPUTS
+- `-a, --all`: Reset ALL memories
+
+Example:
+```shell Terminal
+cropioai reset-memories --long --short
+cropioai reset-memories --all
+```
+
+### 7. Test
+
+Test the cropio and evaluate the results.
+
+```shell Terminal
+cropioai test [OPTIONS]
+```
+
+- `-n, --n_iterations INTEGER`: Number of iterations to test the cropio (default: 3)
+- `-m, --model TEXT`: LLM Model to run the tests on the Cropio (default: "gpt-4o-mini")
+
+Example:
+```shell Terminal    
+cropioai test -n 5 -m gpt-3.5-turbo
+```
+
+### 8. Run
+
+Run the cropio.
+
+```shell Terminal
+cropioai run
+```
+<Note>
+Make sure to run these commands from the directory where your CropioAI project is set up. 
+Some commands may require additional configuration or setup within your project structure.
+</Note>
+
+
+### 9. Chat
+
+Starting in version `0.98.0`, when you run the `cropioai chat` command, you start an interactive session with your cropio. The AI assistant will guide you by asking for necessary inputs to execute the cropio. Once all inputs are provided, the cropio will execute its tasks.
+
+After receiving the results, you can continue interacting with the assistant for further instructions or questions.
+
+```shell Terminal
+cropioai chat
+```
+<Note>
+Ensure you execute these commands from your CropioAI project's root directory.
+</Note>
+<Note>
+IMPORTANT: Set the `chat_llm` property in your `cropio.py` file to enable this command.
+
+```python
+@cropio
+def cropio(self) -> Cropio:
+    return Cropio(
+        agents=self.agents,
+        tasks=self.tasks,
+        process=Process.sequential,
+        verbose=True,
+        chat_llm="gpt-4o",  # LLM for chat orchestration
+    )
+```
+</Note>
+
+
+### 10. API Keys
+
+When running ```cropioai create cropio``` command, the CLI will first show you the top 5 most common LLM providers and ask you to select one.
+
+Once you've selected an LLM provider, you will be prompted for API keys.
+
+#### Initial API key providers
+
+The CLI will initially prompt for API keys for the following services:
+
+* OpenAI
+* Groq
+* Anthropic
+* Google Gemini
+* SambaNova
+
+When you select a provider, the CLI will prompt you to enter your API key.
+
+#### Other Options
+
+If you select option 6, you will be able to select from a list of LiteLLM supported providers.
+
+When you select a provider, the CLI will prompt you to enter the Key name and the API key.
+
+See the following link for each provider's key name:
+
+* [LiteLLM Providers](https://docs.litellm.ai/docs/providers)
+
+
+

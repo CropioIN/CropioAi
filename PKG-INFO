@@ -1,3 +1,56 @@
+Metadata-Version: 2.4
+Name: cropioai
+Version: 0.100.1
+Summary: Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks.
+Project-URL: Homepage, https://cropioai.com
+Project-URL: Documentation, https://docs.cropioai.com
+Project-URL: Repository, https://github.com/cropioAIInc/cropioAI
+Author-email: Joao Moura <joao@cropioai.com>
+License-File: LICENSE
+Requires-Python: <3.13,>=3.10
+Requires-Dist: appdirs>=1.4.4
+Requires-Dist: auth0-python>=4.7.1
+Requires-Dist: blinker>=1.9.0
+Requires-Dist: chromadb>=0.5.23
+Requires-Dist: click>=8.1.7
+Requires-Dist: instructor>=1.3.3
+Requires-Dist: json-repair>=0.25.2
+Requires-Dist: json5>=0.10.0
+Requires-Dist: jsonref>=1.1.0
+Requires-Dist: litellm==1.59.8
+Requires-Dist: openai>=1.13.3
+Requires-Dist: openpyxl>=3.1.5
+Requires-Dist: opentelemetry-api>=1.22.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-http>=1.22.0
+Requires-Dist: opentelemetry-sdk>=1.22.0
+Requires-Dist: pdfplumber>=0.11.4
+Requires-Dist: pydantic>=2.4.2
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pyvis>=0.3.2
+Requires-Dist: regex>=2024.9.11
+Requires-Dist: tomli-w>=1.1.0
+Requires-Dist: tomli>=2.0.2
+Requires-Dist: uv>=0.4.25
+Provides-Extra: agentops
+Requires-Dist: agentops>=0.3.0; extra == 'agentops'
+Provides-Extra: docling
+Requires-Dist: docling>=2.12.0; extra == 'docling'
+Provides-Extra: embeddings
+Requires-Dist: tiktoken~=0.7.0; extra == 'embeddings'
+Provides-Extra: fastembed
+Requires-Dist: fastembed>=0.4.1; extra == 'fastembed'
+Provides-Extra: mem0
+Requires-Dist: mem0ai>=0.1.29; extra == 'mem0'
+Provides-Extra: openpyxl
+Requires-Dist: openpyxl>=3.1.5; extra == 'openpyxl'
+Provides-Extra: pandas
+Requires-Dist: pandas>=2.2.3; extra == 'pandas'
+Provides-Extra: pdfplumber
+Requires-Dist: pdfplumber>=0.11.4; extra == 'pdfplumber'
+Provides-Extra: tools
+Requires-Dist: cropioai-tools>=0.32.1; extra == 'tools'
+Description-Content-Type: text/markdown
+
 <div align="center">
 
 ![Logo of CropioAI, two people rowing on a boat](./docs/cropioai_logo.png)
