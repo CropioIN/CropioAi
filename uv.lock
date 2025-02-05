@@ -649,7 +649,7 @@ wheels = [
 
 [[package]]
 name = "cropioai"
-version = "0.100.1"
+version = "0.0.5"
 source = { editable = "." }
 dependencies = [
     { name = "appdirs" },
