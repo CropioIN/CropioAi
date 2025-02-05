@@ -325,7 +325,7 @@ def run():
     inputs = {
         'topic': 'AI Agents'
     }
-    LatestAiDevelopmentCropio().cropio().kickoff(inputs=inputs)
+    LatestAiDevelopmentCropio().cropio().takeoff(inputs=inputs)
 ```
 
 ### 3. Running Your Cropio
@@ -464,7 +464,7 @@ class AdvancedAnalysisFlow(Flow[MarketState]):
             process=Process.sequential,
             verbose=True
         )
-        return analysis_cropio.kickoff(inputs=market_data)  # Pass market_data as named inputs
+        return analysis_cropio.takeoff(inputs=market_data)  # Pass market_data as named inputs
 
     @router(analyze_with_cropio)
     def determine_next_steps(self):
@@ -488,7 +488,7 @@ class AdvancedAnalysisFlow(Flow[MarketState]):
                      expected_output="Step-by-step action plan")
             ]
         )
-        return strategy_cropio.kickoff()
+        return strategy_cropio.takeoff()
 
     @listen("medium_confidence", "low_confidence")
     def request_additional_analysis(self):

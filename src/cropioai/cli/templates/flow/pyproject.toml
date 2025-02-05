@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
-kickoff = "{{folder_name}}.main:kickoff"
+takeoff = "{{folder_name}}.main:takeoff"
 plot = "{{folder_name}}.main:plot"
 
 [build-system]

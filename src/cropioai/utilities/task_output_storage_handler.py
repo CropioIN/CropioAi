@@ -3,8 +3,8 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
-from cropioai.memory.storage.kickoff_task_outputs_storage import (
-    KickoffTaskOutputsSQLiteStorage,
+from cropioai.memory.storage.takeoff_task_outputs_storage import (
+    TakeoffTaskOutputsSQLiteStorage,
 )
 from cropioai.task import Task
 
@@ -28,7 +28,7 @@ class ExecutionLog(BaseModel):
 
 class TaskOutputStorageHandler:
     def __init__(self) -> None:
-        self.storage = KickoffTaskOutputsSQLiteStorage()
+        self.storage = TakeoffTaskOutputsSQLiteStorage()
 
     def update(self, task_index: int, log: Dict[str, Any]):
         saved_outputs = self.load()

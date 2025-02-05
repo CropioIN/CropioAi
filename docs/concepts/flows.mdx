@@ -75,7 +75,7 @@ class ExampleFlow(Flow):
 
 
 flow = ExampleFlow()
-result = flow.kickoff()
+result = flow.takeoff()
 
 print(f"Generated fun fact: {result}")
 ```
@@ -127,7 +127,7 @@ Accessing and handling the output of a Flow is essential for integrating your AI
 
 #### Retrieving the Final Output
 
-When you run a Flow, the final output is determined by the last method that completes. The `kickoff()` method returns the output of this final method.
+When you run a Flow, the final output is determined by the last method that completes. The `takeoff()` method returns the output of this final method.
 
 Here's how you can access the final output:
 
@@ -146,7 +146,7 @@ class OutputExampleFlow(Flow):
 
 
 flow = OutputExampleFlow()
-final_output = flow.kickoff()
+final_output = flow.takeoff()
 
 print("---- Final Output ----")
 print(final_output)
@@ -160,7 +160,7 @@ Second method received: Output from first_method
 </CodeGroup>
 
 In this example, the `second_method` is the last method to complete, so its output will be the final output of the Flow.
-The `kickoff()` method will return the final output, which is then printed to the console.
+The `takeoff()` method will return the final output, which is then printed to the console.
 
 #### Accessing and Updating State
 
@@ -192,7 +192,7 @@ class StateExampleFlow(Flow[ExampleState]):
         return self.state.message
 
 flow = StateExampleFlow()
-final_output = flow.kickoff()
+final_output = flow.takeoff()
 print(f"Final Output: {final_output}")
 print("Final State:")
 print(flow.state)
@@ -249,7 +249,7 @@ class UnstructuredExampleFlow(Flow):
 
 
 flow = UnstructuredExampleFlow()
-flow.kickoff()
+flow.takeoff()
 ```
 
 **Note:** The `id` field is automatically generated and preserved throughout the flow's execution. You don't need to manage or set it manually, and it will be maintained even when updating the state with new data.
@@ -299,7 +299,7 @@ class StructuredExampleFlow(Flow[ExampleState]):
 
 
 flow = StructuredExampleFlow()
-flow.kickoff()
+flow.takeoff()
 ```
 
 **Key Points:**
@@ -436,7 +436,7 @@ class OrExampleFlow(Flow):
 
 
 flow = OrExampleFlow()
-flow.kickoff()
+flow.takeoff()
 ```
 
 ```text Output
@@ -474,7 +474,7 @@ class AndExampleFlow(Flow):
         print(self.state)
 
 flow = AndExampleFlow()
-flow.kickoff()
+flow.takeoff()
 ```
 
 ```text Output
@@ -527,7 +527,7 @@ class RouterFlow(Flow[ExampleState]):
 
 
 flow = RouterFlow()
-flow.kickoff()
+flow.takeoff()
 ```
 
 ```text Output
@@ -615,7 +615,7 @@ class PoemFlow(Flow[PoemState]):
     @listen(generate_sentence_count)
     def generate_poem(self):
         print("Generating poem")
-        result = PoemCropio().cropio().kickoff(inputs={"sentence_count": self.state.sentence_count})
+        result = PoemCropio().cropio().takeoff(inputs={"sentence_count": self.state.sentence_count})
 
         print("Poem generated", result.raw)
         self.state.poem = result.raw
@@ -626,9 +626,9 @@ class PoemFlow(Flow[PoemState]):
         with open("poem.txt", "w") as f:
             f.write(self.state.poem)
 
-def kickoff():
+def takeoff():
     poem_flow = PoemFlow()
-    poem_flow.kickoff()
+    poem_flow.takeoff()
 
 
 def plot():
@@ -636,10 +636,10 @@ def plot():
     poem_flow.plot()
 
 if __name__ == "__main__":
-    kickoff()
+    takeoff()
 ```
 
-In this example, the `PoemFlow` class defines a flow that generates a sentence count, uses the `PoemCropio` to generate a poem, and then saves the poem to a file. The flow is kicked off by calling the `kickoff()` method.
+In this example, the `PoemFlow` class defines a flow that generates a sentence count, uses the `PoemCropio` to generate a poem, and then saves the poem to a file. The flow is kicked off by calling the `takeoff()` method.
 
 ### Running the Flow
 
@@ -658,13 +658,13 @@ source .venv/bin/activate
 After activating the virtual environment, you can run the flow by executing one of the following commands:
 
 ```bash
-cropioai flow kickoff
+cropioai flow takeoff
 ```
 
 or
 
 ```bash
-uv run kickoff
+uv run takeoff
 ```
 
 The flow will execute, and you should see the output in the console.

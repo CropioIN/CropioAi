@@ -235,7 +235,7 @@ def test_output_pydantic_sequential():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task], process=Process.sequential)
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert isinstance(result.pydantic, ScoreOutput)
     assert result.to_dict() == {"score": 4}
 
@@ -265,7 +265,7 @@ def test_output_pydantic_hierarchical():
         process=Process.hierarchical,
         manager_llm="gpt-4o",
     )
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert isinstance(result.pydantic, ScoreOutput)
     assert result.to_dict() == {"score": 4}
 
@@ -291,7 +291,7 @@ def test_output_json_sequential():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task], process=Process.sequential)
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert '{"score": 4}' == result.json
     assert result.to_dict() == {"score": 4}
 
@@ -321,7 +321,7 @@ def test_output_json_hierarchical():
         process=Process.hierarchical,
         manager_llm="gpt-4o",
     )
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert result.json == '{"score": 4}'
     assert result.to_dict() == {"score": 4}
 
@@ -346,7 +346,7 @@ def test_json_property_without_output_json():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task], process=Process.sequential)
-    result = cropio.kickoff()
+    result = cropio.takeoff()
 
     with pytest.raises(ValueError) as excinfo:
         _ = result.json  # Attempt to access the json property
@@ -374,7 +374,7 @@ def test_output_json_dict_sequential():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task], process=Process.sequential)
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert {"score": 4} == result.json_dict
     assert result.to_dict() == {"score": 4}
 
@@ -404,7 +404,7 @@ def test_output_json_dict_hierarchical():
         process=Process.hierarchical,
         manager_llm="gpt-4o",
     )
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert {"score": 4} == result.json_dict
     assert result.to_dict() == {"score": 4}
 
@@ -439,7 +439,7 @@ def test_output_pydantic_to_another_task():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task1, task2], verbose=True)
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     pydantic_result = result.pydantic
     assert isinstance(
         pydantic_result, ScoreOutput
@@ -474,7 +474,7 @@ def test_output_json_to_another_task():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task1, task2])
-    result = cropio.kickoff()
+    result = cropio.takeoff()
     assert '{"score": 4}' == result.json
 
 
@@ -498,7 +498,7 @@ def test_save_task_output():
 
     with patch.object(Task, "_save_file") as save_file:
         save_file.return_value = None
-        cropio.kickoff()
+        cropio.takeoff()
         save_file.assert_called_once()
 
 
@@ -523,7 +523,7 @@ def test_save_task_json_output():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task])
-    cropio.kickoff()
+    cropio.takeoff()
 
     output_file_exists = os.path.exists("score.json")
     assert output_file_exists
@@ -553,7 +553,7 @@ def test_save_task_pydantic_output():
     )
 
     cropio = Cropio(agents=[scorer], tasks=[task])
-    cropio.kickoff()
+    cropio.takeoff()
 
     output_file_exists = os.path.exists("score.json")
     assert output_file_exists
@@ -590,7 +590,7 @@ def test_custom_converter_cls():
     with patch.object(
         ScoreConverter, "to_pydantic", return_value=ScoreOutput(score=5)
     ) as mock_to_pydantic:
-        cropio.kickoff()
+        cropio.takeoff()
         mock_to_pydantic.assert_called_once()
 
 
@@ -617,7 +617,7 @@ def test_increment_delegations_for_hierarchical_process():
 
     with patch.object(Task, "increment_delegations") as increment_delegations:
         increment_delegations.return_value = None
-        cropio.kickoff()
+        cropio.takeoff()
         increment_delegations.assert_called_once()
 
 
@@ -651,7 +651,7 @@ def test_increment_delegations_for_sequential_process():
 
     with patch.object(Task, "increment_delegations") as increment_delegations:
         increment_delegations.return_value = None
-        cropio.kickoff()
+        cropio.takeoff()
         increment_delegations.assert_called_once()
 
 
@@ -685,7 +685,7 @@ def test_increment_tool_errors():
 
     with patch.object(Task, "increment_tools_errors") as increment_tools_errors:
         increment_tools_errors.return_value = None
-        cropio.kickoff()
+        cropio.takeoff()
         assert len(increment_tools_errors.mock_calls) > 0
 
 

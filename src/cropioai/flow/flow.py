@@ -699,7 +699,7 @@ class Flow(Generic[T], metaclass=FlowMeta):
         else:
             raise TypeError(f"State must be dict or BaseModel, got {type(self._state)}")
 
-    def kickoff(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
+    def takeoff(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
         """Start the flow execution.
 
         Args:
@@ -742,9 +742,9 @@ class Flow(Generic[T], metaclass=FlowMeta):
         if inputs is not None and 'id' not in inputs:
             self._initialize_state(inputs)
 
-        return asyncio.run(self.kickoff_async())
+        return asyncio.run(self.takeoff_async())
 
-    async def kickoff_async(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
+    async def takeoff_async(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
         if not self._start_methods:
             raise ValueError("No start method defined")
 

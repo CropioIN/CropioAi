@@ -33,7 +33,7 @@ def test_persist_decorator_saves_state(tmp_path):
 
     # Run flow and verify state is saved
     flow = TestFlow(persistence=persistence)
-    flow.kickoff()
+    flow.takeoff()
 
     # Load state from DB and verify
     saved_state = persistence.load_state(flow.state["id"])
@@ -57,7 +57,7 @@ def test_structured_state_persistence(tmp_path):
 
     # Run flow and verify state changes are saved
     flow = StructuredFlow(persistence=persistence)
-    flow.kickoff()
+    flow.takeoff()
 
     # Load and verify state
     saved_state = persistence.load_state(flow.state.id)
@@ -84,12 +84,12 @@ def test_flow_state_restoration(tmp_path):
 
     # Create and persist initial state
     flow1 = RestorableFlow(persistence=persistence)
-    flow1.kickoff()
+    flow1.takeoff()
     original_uuid = flow1.state.id
 
     # Test case 1: Restore using restore_uuid with field override
     flow2 = RestorableFlow(persistence=persistence)
-    flow2.kickoff(inputs={
+    flow2.takeoff(inputs={
         "id": original_uuid,
         "counter": 43
     })
@@ -101,7 +101,7 @@ def test_flow_state_restoration(tmp_path):
 
     # Test case 2: Restore using kwargs['id']
     flow3 = RestorableFlow(persistence=persistence)
-    flow3.kickoff(inputs={
+    flow3.takeoff(inputs={
         "id": original_uuid,
         "message": "Updated message"
     })
@@ -136,10 +136,10 @@ def test_multiple_method_persistence(tmp_path):
                 self.state.message = "Step 2"
 
     flow = MultiStepFlow(persistence=persistence)
-    flow.kickoff()
+    flow.takeoff()
 
     flow2 = MultiStepFlow(persistence=persistence)
-    flow2.kickoff(inputs={"id": flow.state.id})
+    flow2.takeoff(inputs={"id": flow.state.id})
 
     # Load final state
     final_state = flow2.state
@@ -165,10 +165,10 @@ def test_multiple_method_persistence(tmp_path):
                 self.state.message = "Step 2"
 
     flow = NoPersistenceMultiStepFlow(persistence=persistence)
-    flow.kickoff()
+    flow.takeoff()
 
     flow2 = NoPersistenceMultiStepFlow(persistence=persistence)
-    flow2.kickoff(inputs={"id": flow.state.id})
+    flow2.takeoff(inputs={"id": flow.state.id})
 
     # Load final state
     final_state = flow2.state

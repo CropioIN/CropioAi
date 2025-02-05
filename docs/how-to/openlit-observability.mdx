@@ -102,7 +102,7 @@ This setup enables you to track hyperparameters and monitor for performance issu
           )
 
           # Start the cropio's work
-          result = cropio.kickoff()
+          result = cropio.takeoff()
 
           print(result)
           ```
@@ -152,9 +152,9 @@ This setup enables you to track hyperparameters and monitor for performance issu
             tasks=[data_analysis_task]
           )
 
-          # Async function to kickoff the cropio asynchronously
+          # Async function to takeoff the cropio asynchronously
           async def async_cropio_execution():
-              result = await analysis_cropio.kickoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
+              result = await analysis_cropio.takeoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
               print("Cropio Result:", result)
 
           # Run the async function

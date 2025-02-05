@@ -128,21 +128,21 @@ Follow the steps below to get cropioing! 🚣‍♂️
     ```python cropio.py
     # src/latest_ai_development/cropio.py
     from cropioai import Agent, Cropio, Process, Task
-    from cropioai.project import CropioBase, agent, cropio, task, before_kickoff, after_kickoff
+    from cropioai.project import CropioBase, agent, cropio, task, before_takeoff, after_takeoff
     from cropioai_tools import SerperDevTool
 
     @CropioBase
     class LatestAiDevelopmentCropio():
       """LatestAiDevelopment cropio"""
 
-      @before_kickoff
-      def before_kickoff_function(self, inputs):
-        print(f"Before kickoff function with inputs: {inputs}")
+      @before_takeoff
+      def before_takeoff_function(self, inputs):
+        print(f"Before takeoff function with inputs: {inputs}")
         return inputs # You can return the inputs or modify them as needed
 
-      @after_kickoff
-      def after_kickoff_function(self, result):
-        print(f"After kickoff function with result: {result}")
+      @after_takeoff
+      def after_takeoff_function(self, result):
+        print(f"After takeoff function with result: {result}")
         return result # You can return the result or modify it as needed
 
       # ... remaining code
@@ -163,7 +163,7 @@ Follow the steps below to get cropioing! 🚣‍♂️
       inputs = {
         'topic': 'AI Agents'
       }
-      LatestAiDevelopmentCropio().cropio().kickoff(inputs=inputs)
+      LatestAiDevelopmentCropio().cropio().takeoff(inputs=inputs)
     ```
   </Step>
   <Step title="Set your environment variables">
@@ -378,14 +378,14 @@ def web_search_tool(query: str, max_results: int = 5) -> list[str]:
     return [f"Result {i} for: {query}" for i in range(max_results)]
 ```
 
-#### @before_kickoff
+#### @before_takeoff
 Used to execute logic before the cropio starts. Use this when:
 - You need to validate or preprocess input data
 - You want to set up resources or configurations before execution
 - You need to perform any initialization logic
 
 ```python
-@before_kickoff
+@before_takeoff
 def validate_inputs(self, inputs: Optional[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """Validate and preprocess inputs before the cropio starts."""
     if inputs is None:
@@ -400,14 +400,14 @@ def validate_inputs(self, inputs: Optional[Dict[str, Any]]) -> Optional[Dict[str
     return inputs
 ```
 
-#### @after_kickoff
+#### @after_takeoff
 Used to process results after the cropio completes. Use this when:
 - You need to format or transform the final output
 - You want to perform cleanup operations
 - You need to save or log the results in a specific way
 
 ```python
-@after_kickoff
+@after_takeoff
 def process_results(self, result: CropioOutput) -> CropioOutput:
     """Process and format the results after the cropio completes."""
     result.raw = result.raw.strip()
@@ -462,7 +462,7 @@ These decorators are part of the CropioAI framework and help organize your cropi
 They should be used within a class decorated with `@CropioBase`.
 </Note>
 
-### Replay Tasks from Latest Cropio Kickoff
+### Replay Tasks from Latest Cropio Takeoff
 
 CropioAI now includes a replay feature that allows you to list the tasks from the last run and replay from a specific one. To use this feature, run.
 

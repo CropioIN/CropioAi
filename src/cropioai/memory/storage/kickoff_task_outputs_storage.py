@@ -13,9 +13,9 @@ from cropioai.utilities.paths import db_storage_path
 logger = logging.getLogger(__name__)
 
 
-class KickoffTaskOutputsSQLiteStorage:
+class TakeoffTaskOutputsSQLiteStorage:
     """
-    An updated SQLite storage class for kickoff task outputs storage.
+    An updated SQLite storage class for takeoff task outputs storage.
     """
 
     def __init__(
@@ -23,13 +23,13 @@ class KickoffTaskOutputsSQLiteStorage:
     ) -> None:
         if db_path is None:
             # Get the parent directory of the default db path and create our db file there
-            db_path = str(Path(db_storage_path()) / "latest_kickoff_task_outputs.db")
+            db_path = str(Path(db_storage_path()) / "latest_takeoff_task_outputs.db")
         self.db_path = db_path
         self._printer: Printer = Printer()
         self._initialize_db()
 
     def _initialize_db(self) -> None:
-        """Initialize the SQLite database and create the latest_kickoff_task_outputs table.
+        """Initialize the SQLite database and create the latest_takeoff_task_outputs table.
 
         This method sets up the database schema for storing task outputs. It creates
         a table with columns for task_id, expected_output, output (as JSON),
@@ -43,7 +43,7 @@ class KickoffTaskOutputsSQLiteStorage:
                 cursor = conn.cursor()
                 cursor.execute(
                     """
-                    CREATE TABLE IF NOT EXISTS latest_kickoff_task_outputs (
+                    CREATE TABLE IF NOT EXISTS latest_takeoff_task_outputs (
                         task_id TEXT PRIMARY KEY,
                         expected_output TEXT,
                         output JSON,
@@ -87,7 +87,7 @@ class KickoffTaskOutputsSQLiteStorage:
                 cursor = conn.cursor()
                 cursor.execute(
                     """
-                INSERT OR REPLACE INTO latest_kickoff_task_outputs
+                INSERT OR REPLACE INTO latest_takeoff_task_outputs
                 (task_id, expected_output, output, task_index, inputs, was_replayed)
                 VALUES (?, ?, ?, ?, ?, ?)
             """,
@@ -139,7 +139,7 @@ class KickoffTaskOutputsSQLiteStorage:
                         else value
                     )
 
-                query = f"UPDATE latest_kickoff_task_outputs SET {', '.join(fields)} WHERE task_index = ?"  # nosec
+                query = f"UPDATE latest_takeoff_task_outputs SET {', '.join(fields)} WHERE task_index = ?"  # nosec
                 values.append(task_index)
 
                 cursor.execute(query, tuple(values))
@@ -168,7 +168,7 @@ class KickoffTaskOutputsSQLiteStorage:
                 cursor = conn.cursor()
                 cursor.execute("""
                 SELECT *
-                FROM latest_kickoff_task_outputs
+                FROM latest_takeoff_task_outputs
                 ORDER BY task_index
                 """)
 
@@ -196,7 +196,7 @@ class KickoffTaskOutputsSQLiteStorage:
     def delete_all(self) -> None:
         """Delete all task output records from the database.
 
-        This method removes all records from the latest_kickoff_task_outputs table.
+        This method removes all records from the latest_takeoff_task_outputs table.
         Use with caution as this operation cannot be undone.
 
         Raises:
@@ -206,7 +206,7 @@ class KickoffTaskOutputsSQLiteStorage:
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute("BEGIN TRANSACTION")
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM latest_kickoff_task_outputs")
+                cursor.execute("DELETE FROM latest_takeoff_task_outputs")
                 conn.commit()
         except sqlite3.Error as e:
             error_msg = DatabaseError.format_error(DatabaseError.DELETE_ERROR, e)

@@ -2,7 +2,7 @@ import pytest
 
 from cropioai.agent import Agent
 from cropioai.cropio import Cropio
-from cropioai.project import CropioBase, after_kickoff, agent, before_kickoff, cropio, task
+from cropioai.project import CropioBase, after_takeoff, agent, before_takeoff, cropio, task
 from cropioai.task import Task
 
 
@@ -47,13 +47,13 @@ class InternalCropio:
     def reporting_task(self):
         return Task(config=self.tasks_config["reporting_task"])
 
-    @before_kickoff
+    @before_takeoff
     def modify_inputs(self, inputs):
         if inputs:
             inputs["topic"] = "Bicycles"
         return inputs
 
-    @after_kickoff
+    @after_takeoff
     def modify_outputs(self, outputs):
         outputs.raw = outputs.raw + " post processed"
         return outputs
@@ -106,33 +106,33 @@ def test_task_name():
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_before_kickoff_modification():
+def test_before_takeoff_modification():
     cropio = InternalCropio()
     inputs = {"topic": "LLMs"}
-    result = cropio.cropio().kickoff(inputs=inputs)
-    assert "bicycles" in result.raw, "Before kickoff function did not modify inputs"
+    result = cropio.cropio().takeoff(inputs=inputs)
+    assert "bicycles" in result.raw, "Before takeoff function did not modify inputs"
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_after_kickoff_modification():
+def test_after_takeoff_modification():
     cropio = InternalCropio()
     # Assuming the cropio execution returns a dict
-    result = cropio.cropio().kickoff({"topic": "LLMs"})
+    result = cropio.cropio().takeoff({"topic": "LLMs"})
 
     assert (
         "post processed" in result.raw
-    ), "After kickoff function did not modify outputs"
+    ), "After takeoff function did not modify outputs"
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_before_kickoff_with_none_input():
+def test_before_takeoff_with_none_input():
     cropio = InternalCropio()
-    cropio.cropio().kickoff(None)
+    cropio.cropio().takeoff(None)
     # Test should pass without raising exceptions
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_multiple_before_after_kickoff():
+def test_multiple_before_after_takeoff():
     @CropioBase
     class MultipleHooksCropio:
         agents_config = "config/agents.yaml"
@@ -154,22 +154,22 @@ def test_multiple_before_after_kickoff():
         def reporting_task(self):
             return Task(config=self.tasks_config["reporting_task"])
 
-        @before_kickoff
+        @before_takeoff
         def first_before(self, inputs):
             inputs["topic"] = "Bicycles"
             return inputs
 
-        @before_kickoff
+        @before_takeoff
         def second_before(self, inputs):
             inputs["topic"] = "plants"
             return inputs
 
-        @after_kickoff
+        @after_takeoff
         def first_after(self, outputs):
             outputs.raw = outputs.raw + " processed first"
             return outputs
 
-        @after_kickoff
+        @after_takeoff
         def second_after(self, outputs):
             outputs.raw = outputs.raw + " processed second"
             return outputs
@@ -179,8 +179,8 @@ def test_multiple_before_after_kickoff():
             return Cropio(agents=self.agents, tasks=self.tasks, verbose=True)
 
     cropio = MultipleHooksCropio()
-    result = cropio.cropio().kickoff({"topic": "LLMs"})
+    result = cropio.cropio().takeoff({"topic": "LLMs"})
 
-    assert "plants" in result.raw, "First before_kickoff not executed"
-    assert "processed first" in result.raw, "First after_kickoff not executed"
-    assert "processed second" in result.raw, "Second after_kickoff not executed"
+    assert "plants" in result.raw, "First before_takeoff not executed"
+    assert "processed first" in result.raw, "First after_takeoff not executed"
+    assert "processed second" in result.raw, "Second after_takeoff not executed"

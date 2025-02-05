@@ -97,10 +97,10 @@ def test_reset_long_term_memories(MockLongTermMemory, runner):
 
 
 @mock.patch("cropioai.cli.reset_memories_command.TaskOutputStorageHandler")
-def test_reset_kickoff_outputs(MockTaskOutputStorageHandler, runner):
+def test_reset_takeoff_outputs(MockTaskOutputStorageHandler, runner):
     result = runner.invoke(reset_memories, ["-k"])
     MockTaskOutputStorageHandler().reset.assert_called_once()
-    assert result.output == "Latest Kickoff outputs stored has been reset.\n"
+    assert result.output == "Latest Takeoff outputs stored has been reset.\n"
 
 
 @mock.patch("cropioai.cli.reset_memories_command.ShortTermMemory")

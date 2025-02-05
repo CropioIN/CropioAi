@@ -7,15 +7,15 @@ from cropioai.project.utils import memoize
 """Decorators for defining cropio components and their behaviors."""
 
 
-def before_kickoff(func):
-    """Marks a method to execute before cropio kickoff."""
-    func.is_before_kickoff = True
+def before_takeoff(func):
+    """Marks a method to execute before cropio takeoff."""
+    func.is_before_takeoff = True
     return func
 
 
-def after_kickoff(func):
-    """Marks a method to execute after cropio kickoff."""
-    func.is_after_kickoff = True
+def after_takeoff(func):
+    """Marks a method to execute after cropio takeoff."""
+    func.is_after_takeoff = True
     return func
 
 
@@ -117,10 +117,10 @@ def cropio(func) -> Callable[..., Cropio]:
 
             return wrapper
 
-        for _, callback in self._before_kickoff.items():
-            cropio.before_kickoff_callbacks.append(callback_wrapper(callback, self))
-        for _, callback in self._after_kickoff.items():
-            cropio.after_kickoff_callbacks.append(callback_wrapper(callback, self))
+        for _, callback in self._before_takeoff.items():
+            cropio.before_takeoff_callbacks.append(callback_wrapper(callback, self))
+        for _, callback in self._after_takeoff.items():
+            cropio.after_takeoff_callbacks.append(callback_wrapper(callback, self))
 
         return cropio
 

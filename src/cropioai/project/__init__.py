@@ -1,7 +1,7 @@
 from .annotations import (
-    after_kickoff,
+    after_takeoff,
     agent,
-    before_kickoff,
+    before_takeoff,
     cache_handler,
     callback,
     cropio,
@@ -24,6 +24,6 @@ __all__ = [
     "CropioBase",
     "llm",
     "cache_handler",
-    "before_kickoff",
-    "after_kickoff",
+    "before_takeoff",
+    "after_takeoff",
 ]

@@ -26,7 +26,7 @@ class PoemFlow(Flow[PoemState]):
         result = (
             PoemCropio()
             .cropio()
-            .kickoff(inputs={"sentence_count": self.state.sentence_count})
+            .takeoff(inputs={"sentence_count": self.state.sentence_count})
         )
 
         print("Poem generated", result.raw)
@@ -39,9 +39,9 @@ class PoemFlow(Flow[PoemState]):
             f.write(self.state.poem)
 
 
-def kickoff():
+def takeoff():
     poem_flow = PoemFlow()
-    poem_flow.kickoff()
+    poem_flow.takeoff()
 
 
 def plot():
@@ -50,4 +50,4 @@ def plot():
 
 
 if __name__ == "__main__":
-    kickoff()
+    takeoff()

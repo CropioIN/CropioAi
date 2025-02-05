@@ -22,7 +22,7 @@ def test_simple_sequential_flow():
             execution_order.append("step_2")
 
     flow = SimpleFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert execution_order == ["step_1", "step_2"]
 
@@ -49,7 +49,7 @@ def test_flow_with_multiple_starts():
             execution_order.append("step_d")
 
     flow = MultiStartFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert "step_a" in execution_order
     assert "step_b" in execution_order
@@ -87,7 +87,7 @@ def test_cyclic_flow():
             return "exit"
 
     flow = CyclicFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     expected_order = []
     for i in range(flow.max_iterations):
@@ -114,7 +114,7 @@ def test_flow_with_and_condition():
             execution_order.append("step_3")
 
     flow = AndConditionFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert "step_1" in execution_order
     assert "step_2" in execution_order
@@ -141,7 +141,7 @@ def test_flow_with_or_condition():
             execution_order.append("step_c")
 
     flow = OrConditionFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert "step_a" in execution_order or "step_b" in execution_order
     assert "step_c" in execution_order
@@ -175,7 +175,7 @@ def test_flow_with_router():
             execution_order.append("step_if_false")
 
     flow = RouterFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert execution_order == ["start_method", "router", "step_if_true"]
 
@@ -196,7 +196,7 @@ def test_async_flow():
             await asyncio.sleep(0.1)
 
     flow = AsyncFlow()
-    asyncio.run(flow.kickoff_async())
+    asyncio.run(flow.takeoff_async())
 
     assert execution_order == ["step_1", "step_2"]
 
@@ -218,7 +218,7 @@ def test_flow_with_exceptions():
     flow = ExceptionFlow()
 
     with pytest.raises(ValueError):
-        flow.kickoff()
+        flow.takeoff()
 
     # Ensure step_2 did not execute
     assert execution_order == ["step_1"]
@@ -238,8 +238,8 @@ def test_flow_restart():
             execution_order.append("step_2")
 
     flow = RestartableFlow()
-    flow.kickoff()
-    flow.kickoff()  # Restart the flow
+    flow.takeoff()
+    flow.takeoff()  # Restart the flow
 
     assert execution_order == ["step_1", "step_2", "step_1", "step_2"]
 
@@ -262,7 +262,7 @@ def test_flow_with_custom_state():
             assert self.counter == 2
 
     flow = StateFlow()
-    flow.kickoff()
+    flow.takeoff()
     assert flow.counter == 2
 
 
@@ -292,7 +292,7 @@ def test_flow_uuid_unstructured():
             assert self.state["id"] == initial_id
 
     flow = UUIDUnstructuredFlow()
-    flow.kickoff()
+    flow.takeoff()
     # Verify ID persists after flow completion
     assert flow.state["id"] == initial_id
     # Verify UUID format (36 characters, including hyphens)
@@ -331,7 +331,7 @@ def test_flow_uuid_structured():
             assert self.state.id == initial_id
 
     flow = UUIDStructuredFlow()
-    flow.kickoff()
+    flow.takeoff()
     # Verify ID persists after flow completion
     assert flow.state.id == initial_id
     # Verify UUID format (36 characters, including hyphens)
@@ -380,7 +380,7 @@ def test_router_with_multiple_conditions():
             execution_order.append("log_final_step")
 
     flow = ComplexRouterFlow()
-    flow.kickoff()
+    flow.takeoff()
 
     assert "step_a" in execution_order
     assert "step_b" in execution_order

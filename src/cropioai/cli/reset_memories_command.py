@@ -14,7 +14,7 @@ def reset_memories_command(
     short,
     entity,
     knowledge,
-    kickoff_outputs,
+    takeoff_outputs,
     all,
 ) -> None:
     """
@@ -24,7 +24,7 @@ def reset_memories_command(
       long (bool): Whether to reset the long-term memory.
       short (bool): Whether to reset the short-term memory.
       entity (bool): Whether to reset the entity memory.
-      kickoff_outputs (bool): Whether to reset the latest kickoff task outputs.
+      takeoff_outputs (bool): Whether to reset the latest takeoff task outputs.
       all (bool): Whether to reset all memories.
       knowledge (bool): Whether to reset the knowledge.
     """
@@ -48,9 +48,9 @@ def reset_memories_command(
             if entity:
                 EntityMemory().reset()
                 click.echo("Entity memory has been reset.")
-            if kickoff_outputs:
+            if takeoff_outputs:
                 TaskOutputStorageHandler().reset()
-                click.echo("Latest Kickoff outputs stored has been reset.")
+                click.echo("Latest Takeoff outputs stored has been reset.")
             if knowledge:
                 KnowledgeStorage().reset()
                 click.echo("Knowledge has been reset.")

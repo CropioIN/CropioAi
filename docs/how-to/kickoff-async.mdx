@@ -1,22 +1,22 @@
 ---
-title: Kickoff Cropio Asynchronously
-description: Kickoff a Cropio Asynchronously
+title: Takeoff Cropio Asynchronously
+description: Takeoff a Cropio Asynchronously
 icon: rocket-launch
 ---
 
 ## Introduction
 
-CropioAI provides the ability to kickoff a cropio asynchronously, allowing you to start the cropio execution in a non-blocking manner. 
+CropioAI provides the ability to takeoff a cropio asynchronously, allowing you to start the cropio execution in a non-blocking manner. 
 This feature is particularly useful when you want to run multiple cropios concurrently or when you need to perform other tasks while the cropio is executing.
 
 ## Asynchronous Cropio Execution
 
-To kickoff a cropio asynchronously, use the `kickoff_async()` method. This method initiates the cropio execution in a separate thread, allowing the main thread to continue executing other tasks.
+To takeoff a cropio asynchronously, use the `takeoff_async()` method. This method initiates the cropio execution in a separate thread, allowing the main thread to continue executing other tasks.
 
 ### Method Signature
 
 ```python Code
-def kickoff_async(self, inputs: dict) -> CropioOutput:
+def takeoff_async(self, inputs: dict) -> CropioOutput:
 ```
 
 ### Parameters
@@ -29,7 +29,7 @@ def kickoff_async(self, inputs: dict) -> CropioOutput:
 
 ## Potential Use Cases
 
-- **Parallel Content Generation**: Kickoff multiple independent cropios asynchronously, each responsible for generating content on different topics. For example, one cropio might research and draft an article on AI trends, while another cropio generates social media posts about a new product launch. Each cropio operates independently, allowing content production to scale efficiently.
+- **Parallel Content Generation**: Takeoff multiple independent cropios asynchronously, each responsible for generating content on different topics. For example, one cropio might research and draft an article on AI trends, while another cropio generates social media posts about a new product launch. Each cropio operates independently, allowing content production to scale efficiently.
 
 - **Concurrent Market Research Tasks**: Launch multiple cropios asynchronously to conduct market research in parallel. One cropio might analyze industry trends, while another examines competitor strategies, and yet another evaluates consumer sentiment. Each cropio independently completes its task, enabling faster and more comprehensive insights.
 
@@ -37,7 +37,7 @@ def kickoff_async(self, inputs: dict) -> CropioOutput:
 
 ## Example: Single Asynchronous Cropio Execution
 
-Here's an example of how to kickoff a cropio asynchronously using asyncio and awaiting the result:
+Here's an example of how to takeoff a cropio asynchronously using asyncio and awaiting the result:
 
 ```python Code
 import asyncio
@@ -63,9 +63,9 @@ analysis_cropio = Cropio(
     tasks=[data_analysis_task]
 )
 
-# Async function to kickoff the cropio asynchronously
+# Async function to takeoff the cropio asynchronously
 async def async_cropio_execution():
-    result = await analysis_cropio.kickoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
+    result = await analysis_cropio.takeoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
     print("Cropio Result:", result)
 
 # Run the async function
@@ -74,7 +74,7 @@ asyncio.run(async_cropio_execution())
 
 ## Example: Multiple Asynchronous Cropio Executions
 
-In this example, we'll show how to kickoff multiple cropios asynchronously and wait for all of them to complete using `asyncio.gather()`:
+In this example, we'll show how to takeoff multiple cropios asynchronously and wait for all of them to complete using `asyncio.gather()`:
 
 ```python Code
 import asyncio
@@ -103,10 +103,10 @@ task_2 = Task(
 cropio_1 = Cropio(agents=[coding_agent], tasks=[task_1])
 cropio_2 = Cropio(agents=[coding_agent], tasks=[task_2])
 
-# Async function to kickoff multiple cropios asynchronously and wait for all to finish
+# Async function to takeoff multiple cropios asynchronously and wait for all to finish
 async def async_multiple_cropios():
-    result_1 = cropio_1.kickoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
-    result_2 = cropio_2.kickoff_async(inputs={"ages": [20, 22, 24, 28, 30]})
+    result_1 = cropio_1.takeoff_async(inputs={"ages": [25, 30, 35, 40, 45]})
+    result_2 = cropio_2.takeoff_async(inputs={"ages": [20, 22, 24, 28, 30]})
 
     # Wait for both cropios to finish
     results = await asyncio.gather(result_1, result_2)

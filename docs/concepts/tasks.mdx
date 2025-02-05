@@ -58,7 +58,7 @@ After creating your CropioAI project as outlined in the [Installation](/installa
 <Note>
 Variables in your YAML files (like `{topic}`) will be replaced with values from your inputs when running the cropio:
 ```python Code
-cropio.kickoff(inputs={'topic': 'AI Agents'})
+cropio.takeoff(inputs={'topic': 'AI Agents'})
 ```
 </Note>
 
@@ -231,7 +231,7 @@ cropio = Cropio(
     verbose=True
 )
 
-result = cropio.kickoff()
+result = cropio.takeoff()
 
 # Accessing the task output
 task_output = task.output
@@ -452,7 +452,7 @@ cropio = Cropio(
     process=Process.sequential,
 )
 
-result = cropio.kickoff()
+result = cropio.takeoff()
 
 # Option 1: Accessing Properties Using Dictionary-Style Indexing
 print("Accessing Properties - Option 1")
@@ -536,8 +536,8 @@ cropio = Cropio(
     process=Process.sequential,
 )
 
-# Kickoff the cropio to execute the task
-result = cropio.kickoff()
+# Takeoff the cropio to execute the task
+result = cropio.takeoff()
 
 # Option 1: Accessing Properties Using Dictionary-Style Indexing
 print("Accessing Properties - Option 1")
@@ -604,7 +604,7 @@ cropio = Cropio(
     verbose=True
 )
 
-result = cropio.kickoff()
+result = cropio.takeoff()
 print(result)
 ```
 
@@ -726,7 +726,7 @@ cropio = Cropio(
     verbose=True
 )
 
-result = cropio.kickoff()
+result = cropio.takeoff()
 
 # Returns a TaskOutput object with the description and results of the task
 print(f"""

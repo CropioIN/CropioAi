@@ -35,18 +35,18 @@ def test_default_value_override():
 
     # First run - should set sentence_count to 2
     flow1 = PoemFlow()
-    flow1.kickoff()
+    flow1.takeoff()
     original_uuid = flow1.state.id
     assert flow1.state.sentence_count == 2
 
     # Second run - should load sentence_count=2 instead of default 1000
     flow2 = PoemFlow()
-    flow2.kickoff(inputs={"id": original_uuid})
+    flow2.takeoff(inputs={"id": original_uuid})
     assert flow2.state.sentence_count == 3  # Should load 2, not default 1000
 
     # Fourth run - explicit override should work
     flow3 = PoemFlow()
-    flow3.kickoff(inputs={
+    flow3.takeoff(inputs={
         "id": original_uuid,
         "has_set_count": True,
         "sentence_count": 5,  # Override persisted value
@@ -55,7 +55,7 @@ def test_default_value_override():
 
     # Third run - should not load sentence_count=2 instead of default 1000
     flow4 = PoemFlow()
-    flow4.kickoff(inputs={"has_set_count": True})
+    flow4.takeoff(inputs={"has_set_count": True})
     assert flow4.state.sentence_count == 1000  # Should load 1000, not 2
 
 
@@ -89,14 +89,14 @@ def test_multi_step_default_override():
 
     # First run - should set both sentence count and poem type
     flow1 = MultiStepPoemFlow()
-    flow1.kickoff()
+    flow1.takeoff()
     original_uuid = flow1.state.id
     assert flow1.state.sentence_count == 3
     assert flow1.state.poem_type == "haiku"
 
     # Second run - should load persisted state and update poem type
     flow2 = MultiStepPoemFlow()
-    flow2.kickoff(inputs={
+    flow2.takeoff(inputs={
         "id": original_uuid,
         "sentence_count": 5
     })
@@ -105,7 +105,7 @@ def test_multi_step_default_override():
 
     # Third run - new flow without persisted state should use defaults
     flow3 = MultiStepPoemFlow()
-    flow3.kickoff(inputs={
+    flow3.takeoff(inputs={
         "id": original_uuid
     })
     assert flow3.state.sentence_count == 5

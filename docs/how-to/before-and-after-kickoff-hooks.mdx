@@ -1,22 +1,22 @@
 ---
-title: Before and After Kickoff Hooks
-description: Learn how to use before and after kickoff hooks in CropioAI
+title: Before and After Takeoff Hooks
+description: Learn how to use before and after takeoff hooks in CropioAI
 ---
 
-CropioAI provides hooks that allow you to execute code before and after a cropio's kickoff. These hooks are useful for preprocessing inputs or post-processing results.
+CropioAI provides hooks that allow you to execute code before and after a cropio's takeoff. These hooks are useful for preprocessing inputs or post-processing results.
 
-## Before Kickoff Hook
+## Before Takeoff Hook
 
-The before kickoff hook is executed before the cropio starts its tasks. It receives the input dictionary and can modify it before passing it to the cropio. You can use this hook to set up your environment, load necessary data, or preprocess your inputs. This is useful in scenarios where the input data might need enrichment or validation before being processed by the cropio.
+The before takeoff hook is executed before the cropio starts its tasks. It receives the input dictionary and can modify it before passing it to the cropio. You can use this hook to set up your environment, load necessary data, or preprocess your inputs. This is useful in scenarios where the input data might need enrichment or validation before being processed by the cropio.
 
-Here's an example of defining a before kickoff function in your `cropio.py`:
+Here's an example of defining a before takeoff function in your `cropio.py`:
 
 ```python
-from cropioai import CropioBase, before_kickoff
+from cropioai import CropioBase, before_takeoff
 
 @CropioBase
 class MyCropio:
-    @before_kickoff
+    @before_takeoff
     def prepare_data(self, inputs):
         # Preprocess or modify inputs
         inputs['processed'] = True
@@ -27,18 +27,18 @@ class MyCropio:
 
 In this example, the prepare_data function modifies the inputs by adding a new key-value pair indicating that the inputs have been processed.
 
-## After Kickoff Hook
+## After Takeoff Hook
 
-The after kickoff hook is executed after the cropio has completed its tasks. It receives the result object, which contains the outputs of the cropio's execution. This hook is ideal for post-processing results, such as logging, data transformation, or further analysis.
+The after takeoff hook is executed after the cropio has completed its tasks. It receives the result object, which contains the outputs of the cropio's execution. This hook is ideal for post-processing results, such as logging, data transformation, or further analysis.
 
-Here's how you can define an after kickoff function in your `cropio.py`:
+Here's how you can define an after takeoff function in your `cropio.py`:
 
 ```python
-from cropioai import CropioBase, after_kickoff
+from cropioai import CropioBase, after_takeoff
 
 @CropioBase
 class MyCropio:
-    @after_kickoff
+    @after_takeoff
     def log_results(self, result):
         # Log or modify the results
         print("Cropio execution completed with result:", result)
@@ -56,4 +56,4 @@ Both hooks can be used together to provide a comprehensive setup and teardown pr
 
 ## Conclusion
 
-Before and after kickoff hooks in CropioAI offer powerful ways to interact with the lifecycle of a cropio's execution. By understanding and utilizing these hooks, you can greatly enhance the robustness and flexibility of your AI agents.
+Before and after takeoff hooks in CropioAI offer powerful ways to interact with the lifecycle of a cropio's execution. By understanding and utilizing these hooks, you can greatly enhance the robustness and flexibility of your AI agents.

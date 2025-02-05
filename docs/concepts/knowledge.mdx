@@ -87,7 +87,7 @@ cropio = Cropio(
     knowledge_sources=[string_source], # Enable knowledge by adding the sources here. You can also add more sources to the sources list.
 )
 
-result = cropio.kickoff(inputs={"question": "What city does John live in and how old is he?"})
+result = cropio.takeoff(inputs={"question": "What city does John live in and how old is he?"})
 ```
 
 
@@ -139,7 +139,7 @@ cropio = Cropio(
     ],  # Enable knowledge by adding the sources here. You can also add more sources to the sources list.
 )
 
-result = cropio.kickoff(
+result = cropio.takeoff(
     inputs={
         "question": "What is the reward hacking paper about? Be sure to provide sources."
     }
@@ -354,7 +354,7 @@ cropio = Cropio(
     }
 )
 
-result = cropio.kickoff(inputs={"question": "What city does John live in and how old is he?"})
+result = cropio.takeoff(inputs={"question": "What city does John live in and how old is he?"})
 ```
 ```text Output
 # Agent: About User
@@ -415,7 +415,7 @@ cropio = Cropio(
 )
 
 # Get answer about the laptop's specifications
-result = cropio.kickoff(
+result = cropio.takeoff(
     inputs={"question": "What is the storage capacity of the XPS 13?"}
 )
 ```
@@ -520,7 +520,7 @@ cropio = Cropio(
 )
 
 # Example usage
-result = cropio.kickoff(
+result = cropio.takeoff(
     inputs={"user_question": "What are the latest developments in space exploration?"}
 )
 ```
@@ -546,7 +546,7 @@ The latest developments in space exploration, based on recent space news article
 
 6. The National Natural Science Foundation of China has outlined a five-year project for researchers to study the assembly of ultra-large spacecraft. This could lead to significant advancements in spacecraft technology and space exploration capabilities. [Source: SpaceNews](https://spacenews.com/china-researching-challenges-of-kilometer-scale-ultra-large-spacecraft/)
 
-7. The Center for AEroSpace Autonomy Research (CAESAR) at Stanford University is focusing on spacecraft autonomy. The center held a kickoff event on May 22, 2024, to highlight the industry, academia, and government collaboration it seeks to foster. This could lead to significant advancements in autonomous spacecraft technology. [Source: SpaceNews](https://spacenews.com/stanford-center-focuses-on-spacecraft-autonomy/)
+7. The Center for AEroSpace Autonomy Research (CAESAR) at Stanford University is focusing on spacecraft autonomy. The center held a takeoff event on May 22, 2024, to highlight the industry, academia, and government collaboration it seeks to foster. This could lead to significant advancements in autonomous spacecraft technology. [Source: SpaceNews](https://spacenews.com/stanford-center-focuses-on-spacecraft-autonomy/)
 ```
 
 </CodeGroup>
@@ -573,7 +573,7 @@ The latest developments in space exploration, based on recent space news article
 
 4. **Cropio Orchestration**:
    - Manages the workflow between agent and task
-   - Handles input/output through the kickoff method
+   - Handles input/output through the takeoff method
 
 This example demonstrates how to:
 

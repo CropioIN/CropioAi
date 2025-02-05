@@ -8,15 +8,15 @@ from cropioai.cli.add_cropio_to_flow import add_cropio_to_flow
 from cropioai.cli.create_cropio import create_cropio
 from cropioai.cli.create_flow import create_flow
 from cropioai.cli.cropio_chat import run_chat
-from cropioai.memory.storage.kickoff_task_outputs_storage import (
-    KickoffTaskOutputsSQLiteStorage,
+from cropioai.memory.storage.takeoff_task_outputs_storage import (
+    TakeoffTaskOutputsSQLiteStorage,
 )
 
 from .authentication.main import AuthenticationCommand
 from .deploy.main import DeployCommand
 from .evaluate_cropio import evaluate_cropio
 from .install_cropio import install_cropio
-from .kickoff_flow import kickoff_flow
+from .takeoff_flow import takeoff_flow
 from .plot_flow import plot_flow
 from .replay_from_task import replay_task_command
 from .reset_memories_command import reset_memories_command
@@ -112,15 +112,15 @@ def replay(task_id: str) -> None:
 @cropioai.command()
 def log_tasks_outputs() -> None:
     """
-    Retrieve your latest cropio.kickoff() task outputs.
+    Retrieve your latest cropio.takeoff() task outputs.
     """
     try:
-        storage = KickoffTaskOutputsSQLiteStorage()
+        storage = TakeoffTaskOutputsSQLiteStorage()
         tasks = storage.load()
 
         if not tasks:
             click.echo(
-                "No task outputs found. Only cropio kickoff task outputs are logged."
+                "No task outputs found. Only cropio takeoff task outputs are logged."
             )
             return
 
@@ -140,9 +140,9 @@ def log_tasks_outputs() -> None:
 @click.option("-kn", "--knowledge", is_flag=True, help="Reset KNOWLEDGE storage")
 @click.option(
     "-k",
-    "--kickoff-outputs",
+    "--takeoff-outputs",
     is_flag=True,
-    help="Reset LATEST KICKOFF TASK OUTPUTS",
+    help="Reset LATEST TAKEOFF TASK OUTPUTS",
 )
 @click.option("-a", "--all", is_flag=True, help="Reset ALL memories")
 def reset_memories(
@@ -150,19 +150,19 @@ def reset_memories(
     short: bool,
     entities: bool,
     knowledge: bool,
-    kickoff_outputs: bool,
+    takeoff_outputs: bool,
     all: bool,
 ) -> None:
     """
-    Reset the cropio memories (long, short, entity, latest_cropio_kickoff_ouputs). This will delete all the data saved.
+    Reset the cropio memories (long, short, entity, latest_cropio_takeoff_ouputs). This will delete all the data saved.
     """
     try:
-        if not all and not (long or short or entities or knowledge or kickoff_outputs):
+        if not all and not (long or short or entities or knowledge or takeoff_outputs):
             click.echo(
                 "Please specify at least one memory type to reset using the appropriate flags."
             )
             return
-        reset_memories_command(long, short, entities, knowledge, kickoff_outputs, all)
+        reset_memories_command(long, short, entities, knowledge, takeoff_outputs, all)
     except Exception as e:
         click.echo(f"An error occurred while resetting memories: {e}", err=True)
 
@@ -322,11 +322,11 @@ def flow():
     pass
 
 
-@flow.command(name="kickoff")
+@flow.command(name="takeoff")
 def flow_run():
-    """Kickoff the Flow."""
+    """Takeoff the Flow."""
     click.echo("Running the Flow")
-    kickoff_flow()
+    takeoff_flow()
 
 
 @flow.command(name="plot")
