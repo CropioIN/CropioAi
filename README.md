@@ -1,6 +1,6 @@
 <div align="center">
 
-![Logo of CropioAI, two people rowing on a boat](./docs/cropioai_logo.png)
+![Logo of CropioAI, two people rowing on a boat](./docs/Cropio.svg)
 
 # **CropioAI**
 
