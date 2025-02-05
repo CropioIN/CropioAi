@@ -48,3 +48,4 @@ jobs:
           body: "🚀 New release v${{ env.VERSION}} is now available!"
           draft: false
           prerelease: false
+          token: ${{ secrets.GH_TOKEN }}
