@@ -12,7 +12,7 @@
 
 </h3>
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/cropioin/cropioAI)](https://github.com/cropioAIInc/cropioAI)
+[![GitHub Repo stars](https://img.shields.io/github/stars/cropioin/cropioAI)](https://github.com/cropioin/cropioAI)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 </div>
