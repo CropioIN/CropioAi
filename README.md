@@ -324,8 +324,6 @@ In addition to the sequential process, you can use the hierarchical process, whi
 - **Event-Driven Flows**: Build complex, real-world workflows with precise control over execution paths, state management, and conditional logic.
 - **Process Orchestration**: Achieve any workflow pattern through flows - from simple sequential and hierarchical processes to complex, custom orchestration patterns with conditional branching and parallel execution.
 
-![CropioAI Mind Map](./docs/cropioAI-mindmap.png "CropioAI Mind Map")
-
 ## Examples
 
 You can test different real life examples of AI cropios in the [CropioAI-examples repo](https://github.com/cropioin/cropioAI-examples?tab=readme-ov-file):
