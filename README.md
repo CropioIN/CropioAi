@@ -8,7 +8,7 @@
 
 <h3>
 
-[Homepage](https://www.cropioai.com/) | [Documentation](https://docs.cropioai.com/) | [Chat with Docs](https://chatg.pt/DWjSBZn) | [Examples](https://github.com/cropioAIInc/cropioAI-examples) | [Discourse](https://community.cropioai.com)
+[Homepage](https://www.cropioai.com/) | [Documentation](https://docs.cropioai.com/) | [Chat with Docs](https://chatg.pt/DWjSBZn) | [Examples](https://github.com/cropioin/cropioAI-examples) | [Discourse](https://community.cropioai.com)
 
 </h3>
 
@@ -328,34 +328,13 @@ In addition to the sequential process, you can use the hierarchical process, whi
 
 ## Examples
 
-You can test different real life examples of AI cropios in the [CropioAI-examples repo](https://github.com/cropioAIInc/cropioAI-examples?tab=readme-ov-file):
+You can test different real life examples of AI cropios in the [CropioAI-examples repo](https://github.com/cropioin/cropioAI-examples?tab=readme-ov-file):
 
-- [Landing Page Generator](https://github.com/cropioAIInc/cropioAI-examples/tree/main/landing_page_generator)
+- [Landing Page Generator](https://github.com/cropioin/cropioAI-examples/tree/main/landing_page_generator)
 - [Having Human input on the execution](https://docs.cropioai.com/how-to/Human-Input-on-Execution)
-- [Trip Planner](https://github.com/cropioAIInc/cropioAI-examples/tree/main/trip_planner)
-- [Stock Analysis](https://github.com/cropioAIInc/cropioAI-examples/tree/main/stock_analysis)
+- [Trip Planner](https://github.com/cropioin/cropioAI-examples/tree/main/trip_planner)
+- [Stock Analysis](https://github.com/cropioin/cropioAI-examples/tree/main/stock_analysis)
 
-### Quick Tutorial
-
-[![CropioAI Tutorial](https://img.youtube.com/vi/tnejrr-0a94/maxresdefault.jpg)](https://www.youtube.com/watch?v=tnejrr-0a94 "CropioAI Tutorial")
-
-### Write Job Descriptions
-
-[Check out code for this example](https://github.com/cropioAIInc/cropioAI-examples/tree/main/job-posting) or watch a video below:
-
-[![Jobs postings](https://img.youtube.com/vi/u98wEMz-9to/maxresdefault.jpg)](https://www.youtube.com/watch?v=u98wEMz-9to "Jobs postings")
-
-### Trip Planner
-
-[Check out code for this example](https://github.com/cropioAIInc/cropioAI-examples/tree/main/trip_planner) or watch a video below:
-
-[![Trip Planner](https://img.youtube.com/vi/xis7rWp-hjs/maxresdefault.jpg)](https://www.youtube.com/watch?v=xis7rWp-hjs "Trip Planner")
-
-### Stock Analysis
-
-[Check out code for this example](https://github.com/cropioAIInc/cropioAI-examples/tree/main/stock_analysis) or watch a video below:
-
-[![Stock Analysis](https://img.youtube.com/vi/e0Uj4yWdaAg/maxresdefault.jpg)](https://www.youtube.com/watch?v=e0Uj4yWdaAg "Stock Analysis")
 
 ### Using Cropios and Flows Together
 
@@ -461,7 +440,7 @@ Please refer to the [Connect CropioAI to LLMs](https://docs.cropioai.com/how-to/
 
 - **LangGraph**: While LangGraph provides a foundation for building agent workflows, its approach requires significant boilerplate code and complex state management patterns. The framework's tight coupling with LangChain can limit flexibility when implementing custom agent behaviors or integrating with external systems.
 
-*P.S. CropioAI demonstrates significant performance advantages over LangGraph, executing 5.76x faster in certain cases like this QA task example ([see comparison](https://github.com/cropioAIInc/cropioAI-examples/tree/main/Notebooks/CropioAI%20Flows%20%26%20Langgraph/QA%20Agent)) while achieving higher evaluation scores with faster completion times in certain coding tasks, like in this example ([detailed analysis](https://github.com/cropioAIInc/cropioAI-examples/blob/main/Notebooks/CropioAI%20Flows%20%26%20Langgraph/Coding%20Assistant/coding_assistant_eval.ipynb)).*
+*P.S. CropioAI demonstrates significant performance advantages over LangGraph, executing 5.76x faster in certain cases like this QA task example ([see comparison](https://github.com/cropioin/cropioAI-examples/tree/main/Notebooks/CropioAI%20Flows%20%26%20Langgraph/QA%20Agent)) while achieving higher evaluation scores with faster completion times in certain coding tasks, like in this example ([detailed analysis](https://github.com/cropioin/cropioAI-examples/blob/main/Notebooks/CropioAI%20Flows%20%26%20Langgraph/Coding%20Assistant/coding_assistant_eval.ipynb)).*
 
 - **Autogen**: While Autogen excels at creating conversational agents capable of working together, it lacks an inherent concept of process. In Autogen, orchestrating agents' interactions requires additional programming, which can become complex and cumbersome as the scale of tasks grows.
 
@@ -553,7 +532,7 @@ Users can opt-in to Further Telemetry, sharing the complete telemetry data by se
 
 ## License
 
-CropioAI is released under the [MIT License](https://github.com/cropioAIInc/cropioAI/blob/main/LICENSE).
+CropioAI is released under the [MIT License](https://github.com/cropioin/cropioAI/blob/main/LICENSE).
 
 ## Frequently Asked Questions (FAQ)
 
@@ -586,7 +565,7 @@ A: Yes, CropioAI is open-source and welcomes contributions from the community.
 A: CropioAI uses anonymous telemetry to collect usage data for improvement purposes. No sensitive data (like prompts, task descriptions, or API calls) is collected. Users can opt-in to share more detailed data by setting `share_cropio=True` on their Cropios.
 
 ### Q: Where can I find examples of CropioAI in action?
-A: You can find various real-life examples in the [CropioAI-examples repository](https://github.com/cropioAIInc/cropioAI-examples), including trip planners, stock analysis tools, and more.
+A: You can find various real-life examples in the [CropioAI-examples repository](https://github.com/cropioin/cropioAI-examples), including trip planners, stock analysis tools, and more.
 
 ### Q: What is the difference between Cropios and Flows?
 A: Cropios and Flows serve different but complementary purposes in CropioAI. Cropios are teams of AI agents working together to accomplish specific tasks through role-based collaboration, delivering accurate and predictable results. Flows, on the other hand, are event-driven workflows that can orchestrate both Cropios and regular Python code, allowing you to build complex automation pipelines with secure state management and conditional execution paths.
