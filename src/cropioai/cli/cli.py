@@ -32,7 +32,7 @@ def cropioai():
     """Top-level command group for cropioai."""
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.argument("type", type=click.Choice(["cropio", "flow"]))
 @click.argument("name")
 @click.option("--provider", type=str, help="The provider to use for the cropio")
@@ -47,7 +47,7 @@ def create(type, name, provider, skip_provider=False):
         click.secho("Error: Invalid type. Must be 'cropio' or 'flow'.", fg="red")
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.option(
     "--tools", is_flag=True, help="Show the installed version of cropioai tools"
 )
@@ -67,7 +67,7 @@ def version(tools):
             click.echo("cropioai tools not installed")
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.option(
     "-n",
     "--n_iterations",
@@ -88,7 +88,7 @@ def train(n_iterations: int, filename: str):
     train_cropio(n_iterations, filename)
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.option(
     "-t",
     "--task_id",
@@ -109,7 +109,7 @@ def replay(task_id: str) -> None:
         click.echo(f"An error occurred while replaying: {e}", err=True)
 
 
-@cropioai.command()
+@cropio.inmand()
 def log_tasks_outputs() -> None:
     """
     Retrieve your latest cropio.takeoff() task outputs.
@@ -133,7 +133,7 @@ def log_tasks_outputs() -> None:
         click.echo(f"An error occurred while logging task outputs: {e}", err=True)
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.option("-l", "--long", is_flag=True, help="Reset LONG TERM memory")
 @click.option("-s", "--short", is_flag=True, help="Reset SHORT TERM memory")
 @click.option("-e", "--entities", is_flag=True, help="Reset ENTITIES memory")
@@ -167,7 +167,7 @@ def reset_memories(
         click.echo(f"An error occurred while resetting memories: {e}", err=True)
 
 
-@cropioai.command()
+@cropio.inmand()
 @click.option(
     "-n",
     "--n_iterations",
@@ -188,7 +188,7 @@ def test(n_iterations: int, model: str):
     evaluate_cropio(n_iterations, model)
 
 
-@cropioai.command(
+@cropio.inmand(
     context_settings=dict(
         ignore_unknown_options=True,
         allow_extra_args=True,
@@ -200,26 +200,26 @@ def install(context):
     install_cropio(context.args)
 
 
-@cropioai.command()
+@cropio.inmand()
 def run():
     """Run the Cropio."""
     click.echo("Running the Cropio")
     run_cropio()
 
 
-@cropioai.command()
+@cropio.inmand()
 def update():
     """Update the pyproject.toml of the Cropio project to use uv."""
     update_cropio()
 
 
-@cropioai.command()
+@cropio.inmand()
 def signup():
     """Sign Up/Login to CropioAI+."""
     AuthenticationCommand().signup()
 
 
-@cropioai.command()
+@cropio.inmand()
 def login():
     """Sign Up/Login to CropioAI+."""
     AuthenticationCommand().signup()
@@ -344,7 +344,7 @@ def flow_add_cropio(cropio_name):
     add_cropio_to_flow(cropio_name)
 
 
-@cropioai.command()
+@cropio.inmand()
 def chat():
     """
     Start a conversation with the Cropio, collecting user-supplied inputs,

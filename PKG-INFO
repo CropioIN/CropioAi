@@ -2,10 +2,10 @@ Metadata-Version: 2.4
 Name: cropioai
 Version: 0.0.7
 Summary: Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks.
-Project-URL: Homepage, https://cropioai.com
-Project-URL: Documentation, https://docs.cropioai.com
+Project-URL: Homepage, https://cropio.in
+Project-URL: Documentation, https://docs.cropio.in
 Project-URL: Repository, https://github.com/cropioAIInc/cropioAI
-Author-email: Joao Moura <joao@cropioai.com>
+Author-email: Joao Moura <joao@cropio.in>
 License-File: LICENSE
 Requires-Python: <3.13,>=3.10
 Requires-Dist: appdirs>=1.4.4
@@ -61,7 +61,7 @@ Description-Content-Type: text/markdown
 
 <h3>
 
-[Homepage](https://www.cropioai.com/) | [Documentation](https://docs.cropioai.com/) | [Chat with Docs](https://chatg.pt/DWjSBZn) | [Examples](https://github.com/cropioAIInc/cropioAI-examples) | [Discourse](https://community.cropioai.com)
+[Homepage](https://www.cropio.in/) | [Documentation](https://docs.cropio.in/) | [Chat with Docs](https://chatg.pt/DWjSBZn) | [Examples](https://github.com/cropioAIInc/cropioAI-examples) | [Discourse](https://community.cropio.in)
 
 </h3>
 
@@ -362,7 +362,7 @@ cropioai update
 
 You should see the output in the console and the `report.md` file should be created in the root of your project with the full final report.
 
-In addition to the sequential process, you can use the hierarchical process, which automatically assigns a manager to the defined cropio to properly coordinate the planning and execution of tasks through delegation and validation of results. [See more about the processes here](https://docs.cropioai.com/core-concepts/Processes/).
+In addition to the sequential process, you can use the hierarchical process, which automatically assigns a manager to the defined cropio to properly coordinate the planning and execution of tasks through delegation and validation of results. [See more about the processes here](https://docs.cropio.in/core-concepts/Processes/).
 
 ## Key Features
 
@@ -372,8 +372,8 @@ In addition to the sequential process, you can use the hierarchical process, whi
 - **Autonomous Inter-Agent Delegation**: Agents can autonomously delegate tasks and inquire amongst themselves, enabling complex problem-solving in real-world scenarios.
 - **Flexible Task Management**: Define and customize tasks with granular control, from simple operations to complex multi-step processes.
 - **Production-Grade Architecture**: Support for both high-level abstractions and low-level customization, with robust error handling and state management.
-- **Predictable Results**: Ensure consistent, accurate outputs through programmatic guardrails, agent training capabilities, and flow-based execution control. See our [documentation on guardrails](https://docs.cropioai.com/how-to/guardrails/) for implementation details.
-- **Model Flexibility**: Run your cropio using OpenAI or open source models with production-ready integrations. See [Connect CropioAI to LLMs](https://docs.cropioai.com/how-to/LLM-Connections/) for detailed configuration options.
+- **Predictable Results**: Ensure consistent, accurate outputs through programmatic guardrails, agent training capabilities, and flow-based execution control. See our [documentation on guardrails](https://docs.cropio.in/how-to/guardrails/) for implementation details.
+- **Model Flexibility**: Run your cropio using OpenAI or open source models with production-ready integrations. See [Connect CropioAI to LLMs](https://docs.cropio.in/how-to/LLM-Connections/) for detailed configuration options.
 - **Event-Driven Flows**: Build complex, real-world workflows with precise control over execution paths, state management, and conditional logic.
 - **Process Orchestration**: Achieve any workflow pattern through flows - from simple sequential and hierarchical processes to complex, custom orchestration patterns with conditional branching and parallel execution.
 
@@ -384,7 +384,7 @@ In addition to the sequential process, you can use the hierarchical process, whi
 You can test different real life examples of AI cropios in the [CropioAI-examples repo](https://github.com/cropioAIInc/cropioAI-examples?tab=readme-ov-file):
 
 - [Landing Page Generator](https://github.com/cropioAIInc/cropioAI-examples/tree/main/landing_page_generator)
-- [Having Human input on the execution](https://docs.cropioai.com/how-to/Human-Input-on-Execution)
+- [Having Human input on the execution](https://docs.cropio.in/how-to/Human-Input-on-Execution)
 - [Trip Planner](https://github.com/cropioAIInc/cropioAI-examples/tree/main/trip_planner)
 - [Stock Analysis](https://github.com/cropioAIInc/cropioAI-examples/tree/main/stock_analysis)
 
@@ -506,7 +506,7 @@ This example demonstrates how to:
 
 CropioAI supports using various LLMs through a variety of connection options. By default your agents will use the OpenAI API when querying the model. However, there are several other ways to allow your agents to connect to models. For example, you can configure your agents to use a local model via the Ollama tool.
 
-Please refer to the [Connect CropioAI to LLMs](https://docs.cropioai.com/how-to/LLM-Connections/) page for details on configuring you agents' connections to models.
+Please refer to the [Connect CropioAI to LLMs](https://docs.cropio.in/how-to/LLM-Connections/) page for details on configuring you agents' connections to models.
 
 ## How CropioAI Compares
 
@@ -624,7 +624,7 @@ pip install 'cropioai[tools]'
 ```
 
 ### Q: Can I use CropioAI with local models?
-A: Yes, CropioAI supports various LLMs, including local models. You can configure your agents to use local models via tools like Ollama & LM Studio. Check the [LLM Connections documentation](https://docs.cropioai.com/how-to/LLM-Connections/) for more details.
+A: Yes, CropioAI supports various LLMs, including local models. You can configure your agents to use local models via tools like Ollama & LM Studio. Check the [LLM Connections documentation](https://docs.cropio.in/how-to/LLM-Connections/) for more details.
 
 ### Q: What are the key features of CropioAI?
 A: Key features include role-based agent design, autonomous inter-agent delegation, flexible task management, process-driven execution, output saving as files, and compatibility with both open-source and proprietary models.

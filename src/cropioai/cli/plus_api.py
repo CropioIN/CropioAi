@@ -23,7 +23,7 @@ class PlusAPI:
             "User-Agent": f"CropioAI-CLI/{get_cropioai_version()}",
             "X-Cropioai-Version": get_cropioai_version(),
         }
-        self.base_url = getenv("CREWAI_BASE_URL", "https://app.cropioai.com")
+        self.base_url = getenv("CREWAI_BASE_URL", "https://app.cropio.in")
 
     def _make_request(self, method: str, endpoint: str, **kwargs) -> requests.Response:
         url = urljoin(self.base_url, endpoint)

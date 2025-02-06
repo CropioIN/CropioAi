@@ -40,7 +40,7 @@ cropioai tool install {{tool_name}}
 
 For support, questions, or feedback regarding the {{cropio_name}} tool or CropioAI.
 
-- Visit our [documentation](https://docs.cropioai.com)
+- Visit our [documentation](https://docs.cropio.in)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/cropioai)
 - [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
 - [Chat with our docs](https://chatg.pt/DWjSBZn)

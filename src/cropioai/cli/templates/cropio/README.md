@@ -1,6 +1,6 @@
 # {{cropio_name}} Cropio
 
-Welcome to the {{cropio_name}} Cropio project, powered by [cropioAI](https://cropioai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by cropioAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the {{cropio_name}} Cropio project, powered by [cropioAI](https://cropio.in). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by cropioAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
 
 ## Installation
 
@@ -46,7 +46,7 @@ The {{name}} Cropio is composed of multiple AI agents, each with unique roles, g
 ## Support
 
 For support, questions, or feedback regarding the {{cropio_name}} Cropio or cropioAI.
-- Visit our [documentation](https://docs.cropioai.com)
+- Visit our [documentation](https://docs.cropio.in)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/cropioai)
 - [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
 - [Chat with our docs](https://chatg.pt/DWjSBZn)

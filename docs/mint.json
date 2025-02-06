@@ -44,7 +44,7 @@
     {
       "name": "Community",
       "icon": "discourse",
-      "url": "https://community.cropioai.com"
+      "url": "https://community.cropio.in"
     },
     {
       "name": "Changelog",
@@ -159,7 +159,7 @@
     "prompt": "Search CropioAI docs"
   },
   "footerSocials": {
-    "website": "https://cropioai.com",
+    "website": "https://cropio.in",
     "x": "https://x.com/cropioAIInc",
     "github": "https://github.com/cropioAIInc/cropioAI",
     "linkedin": "https://www.linkedin.com/company/cropioai-inc",
