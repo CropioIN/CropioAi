@@ -1,6 +1,6 @@
 [project]
 name = "cropioai"
-version = "0.0.4"
+version = "0.0.7"
 description = "The Agents Of Cropio"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
@@ -40,7 +40,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-tools = ["cropioai-tools>=0.0.13"]
+tools = ["cropioai-tools>=0.0.14"]
 embeddings = [
     "tiktoken~=0.7.0"
 ]

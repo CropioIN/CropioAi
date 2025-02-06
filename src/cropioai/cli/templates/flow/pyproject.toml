@@ -5,7 +5,7 @@ description = "{{name}} using cropioAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "cropioai[tools]>=0.0.6,<1.0.0",
+    "cropioai[tools]>=0.0.7,<1.0.0",
 ]
 
 [project.scripts]
