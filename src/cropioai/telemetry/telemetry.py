@@ -52,7 +52,7 @@ class Telemetry:
             return
 
         try:
-            telemetry_endpoint = "https://telemetry.cropio.in:4319"
+            telemetry_endpoint = "https://telemetry.cropio.in"
             self.resource = Resource(
                 attributes={SERVICE_NAME: "cropioAI-telemetry"},
             )
