@@ -1,6 +1,6 @@
 [project]
 name = "cropioai"
-version = "0.1.0"
+version = "0.2.0"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks."
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
@@ -45,7 +45,7 @@ Documentation = "https://docs.cropio.in"
 Repository = "https://github.com/cropioIN/cropioAI"
 
 [project.optional-dependencies]
-tools = ["cropioai-tools>=0.32.1"]
+tools = ["cropioai-tools>=0.0.16"]
 embeddings = [
     "tiktoken~=0.7.0"
 ]

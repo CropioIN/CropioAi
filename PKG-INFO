@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: cropioai
-Version: 0.1.0
+Version: 0.2.0
 Summary: Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks.
 Project-URL: Homepage, https://cropio.in
 Project-URL: Documentation, https://docs.cropio.in
@@ -48,7 +48,7 @@ Requires-Dist: pandas>=2.2.3; extra == 'pandas'
 Provides-Extra: pdfplumber
 Requires-Dist: pdfplumber>=0.11.4; extra == 'pdfplumber'
 Provides-Extra: tools
-Requires-Dist: cropioai-tools>=0.32.1; extra == 'tools'
+Requires-Dist: cropioai-tools>=0.0.16; extra == 'tools'
 Description-Content-Type: text/markdown
 
 <div align="center">

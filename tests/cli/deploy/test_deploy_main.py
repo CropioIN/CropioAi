@@ -215,7 +215,7 @@ class TestDeployCommand(unittest.TestCase):
         toml_content = """
         [tool.poetry]
         name = "test_project"
-        version = "0.1.0"
+        version = "0.2.0"
 
         [tool.poetry.dependencies]
         python = "^3.11"
@@ -230,7 +230,7 @@ class TestDeployCommand(unittest.TestCase):
         read_data="""
         [project]
         name = "test_project"
-        version = "0.1.0"
+        version = "0.2.0"
         requires-python = ">=3.10,<3.13"
         dependencies = ["cropioai"]
         """,
@@ -249,7 +249,7 @@ class TestDeployCommand(unittest.TestCase):
         read_data="""
     [project]
     name = "test_project"
-    version = "0.1.0"
+    version = "0.2.0"
     requires-python = ">=3.10,<3.13"
     dependencies = ["cropioai"]
     """,
