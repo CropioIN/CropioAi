@@ -605,7 +605,7 @@ def test_agent_respect_the_max_rpm_set_over_cropio_rpm(capsys):
 
     with patch.object(RPMController, "_wait_for_next_minute") as moveon:
         moveon.return_value = True
-        cropio.takeoff()
+        cropio.ignite()
         captured = capsys.readouterr()
         assert "Max RPM reached, waiting for next minute to start." not in captured.out
         moveon.assert_not_called()
@@ -664,7 +664,7 @@ def test_agent_without_max_rpm_respects_cropio_rpm(capsys):
 
     with patch.object(RPMController, "_wait_for_next_minute") as moveon:
         moveon.return_value = True
-        cropio.takeoff()
+        cropio.ignite()
         captured = capsys.readouterr()
         assert "get_final_answer" in captured.out
         assert "Max RPM reached, waiting for next minute to start." in captured.out
@@ -709,7 +709,7 @@ def test_agent_error_on_parsing_tool(capsys):
         force_exception_1.side_effect = Exception("Error on parsing tool.")
         with patch.object(ToolUsage, "_render") as force_exception_2:
             force_exception_2.side_effect = Exception("Error on parsing tool.")
-            cropio.takeoff()
+            cropio.ignite()
     captured = capsys.readouterr()
     assert "Error on parsing tool." in captured.out
 
@@ -745,7 +745,7 @@ def test_agent_remembers_output_format_after_using_tools_too_many_times():
     cropio = Cropio(agents=[agent1], tasks=tasks, verbose=True)
 
     with patch.object(ToolUsage, "_remember_format") as remember_format:
-        cropio.takeoff()
+        cropio.ignite()
         remember_format.assert_called()
 
 
@@ -770,7 +770,7 @@ def test_agent_use_specific_tasks_output_as_context(capsys):
     tasks = [say_hi_task, say_bye_task, answer_task]
 
     cropio = Cropio(agents=[agent1, agent2], tasks=tasks)
-    result = cropio.takeoff()
+    result = cropio.ignite()
 
     assert "bye" not in result.raw.lower()
     assert "hi" in result.raw.lower() or "hello" in result.raw.lower()
@@ -806,7 +806,7 @@ def test_agent_step_callback():
         cropio = Cropio(agents=[agent1], tasks=tasks)
 
         callback.return_value = "ok"
-        cropio.takeoff()
+        cropio.ignite()
         callback.assert_called()
 
 
@@ -852,7 +852,7 @@ def test_agent_function_calling_llm():
             side_effect=Exception("Forced exception"),
         ) as mock_original_tool_calling,
     ):
-        cropio.takeoff()
+        cropio.ignite()
         mock_from_litellm.assert_called()
         mock_original_tool_calling.assert_called()
 
@@ -902,7 +902,7 @@ def test_tool_result_as_answer_is_the_final_answer_for_the_agent():
     tasks = [essay]
     cropio = Cropio(agents=[agent1], tasks=tasks)
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "Howdy!"
 
 
@@ -932,7 +932,7 @@ def test_tool_usage_information_is_appended_to_agent():
     tasks = [greeting]
     cropio = Cropio(agents=[agent1], tasks=tasks)
 
-    cropio.takeoff()
+    cropio.ignite()
     assert agent1.tools_results == [
         {
             "result": "Howdy!",
@@ -1597,7 +1597,7 @@ def test_agent_with_knowledge_sources():
         )
 
         cropio = Cropio(agents=[agent], tasks=[task])
-        result = cropio.takeoff()
+        result = cropio.ignite()
 
         # Assert that the agent provides the correct information
         assert "red" in result.raw.lower()

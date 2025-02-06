@@ -228,7 +228,7 @@ def test_cropio_creation():
         tasks=tasks,
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
 
     expected_string_output = "**The Rise of Generalist AI Agents:**\nImagine a future where AI agents are no longer confined to specific tasks like data analytics or speech recognition. The evolution from specialized AI tools to versatile generalist AI agents is comparable to the leap from feature phones to smartphones. This shift heralds significant transformations across diverse industries, from healthcare and finance to customer service. It also raises fascinating ethical considerations around the deployment and control of such powerful technologies. Moreover, this transformation could democratize AI, making sophisticated tools accessible to non-experts and small businesses, thus leveling the playing field in many sectors.\n\n**Ethical Implications of AI in Surveillance:**\nThe advent of advanced AI has significantly boosted surveillance capabilities, presenting a double-edged sword. On one hand, enhanced surveillance can improve public safety and combat crime more effectively. On the other, it raises substantial ethical concerns about privacy invasion and the potential for misuse by authoritarian regimes. Balancing security with privacy is a delicate task, requiring robust legal frameworks and transparent policies. Real-world case studies, from smart city deployments to airport security systems, illustrate both the benefits and the risks of AI-enhanced surveillance, highlighting the need for ethical vigilance and public discourse.\n\n**AI in Creative Industries:**\nAI is breaking new ground in creative fields, transforming how art, music, and content are produced. Far from being mere tools, AI systems are emerging as collaborators, helping artists push the boundaries of creative expression. Noteworthy are AI-generated works that have captured public imagination, like paintings auctioned at prestigious houses or music albums composed by algorithms. The future holds exciting possibilities, as AI may enable novel art forms and interactive experiences previously unimaginable, fostering a symbiotic relationship between human creativity and machine intelligence.\n\n**The Impact of Quantum Computing on AI Development:**\nQuantum computing promises to be a game-changer for AI, offering unprecedented computational power to tackle complex problems. This revolution could significantly enhance AI algorithms, enabling faster and more efficient training and execution. The potential applications are vast, from optimizing supply chains to solving intricate scientific problems and advancing natural language processing. Looking ahead, quantum-enhanced AI might unlock new frontiers, such as real-time data analysis at scales previously thought impossible, pushing the limits of what we can achieve with AI technology.\n\n**AI and Mental Health:**\nThe integration of AI into mental health care is transforming diagnosis and therapy, offering new hope for those in need. AI-driven tools have shown promise in accurately diagnosing conditions and providing personalized treatment plans through data analysis and pattern recognition. Case studies highlight successful interventions where AI has aided mental health professionals, enhancing the effectiveness of traditional therapies. However, this advancement brings ethical concerns, particularly around data privacy and the transparency of AI decision-making processes. As AI continues to evolve, it could play an even more significant role in mental health care, providing early interventions and support on a scale previously unattainable."
 
@@ -274,7 +274,7 @@ def test_sync_task_execution():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Assert that execute_sync was called for each task
         assert mock_execute_sync.call_count == len(tasks)
@@ -294,7 +294,7 @@ def test_hierarchical_process():
         tasks=[task],
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
 
     assert (
         result.raw
@@ -345,7 +345,7 @@ def test_manager_agent_delegating_to_assigned_task_agent():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Verify execute_sync was called once
         mock_execute_sync.assert_called_once()
@@ -385,7 +385,7 @@ def test_manager_agent_delegating_to_all_agents():
         tasks=[task],
     )
 
-    cropio.takeoff()
+    cropio.ignite()
 
     assert cropio.manager_agent is not None
     assert cropio.manager_agent.tools is not None
@@ -443,7 +443,7 @@ def test_manager_agent_delegates_with_varied_role_cases():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Verify execute_sync was called once
         mock_execute_sync.assert_called_once()
@@ -494,7 +494,7 @@ def test_cropio_with_delegating_agents():
         tasks=tasks,
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
 
     assert (
         result.raw
@@ -550,7 +550,7 @@ def test_cropio_with_delegating_agents_should_not_override_task_tools():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Execute the task and verify both tools are present
         _, kwargs = mock_execute_sync.call_args
@@ -614,7 +614,7 @@ def test_cropio_with_delegating_agents_should_not_override_agent_tools():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Execute the task and verify both tools are present
         _, kwargs = mock_execute_sync.call_args
@@ -671,7 +671,7 @@ def test_task_tools_override_agent_tools():
 
     cropio = Cropio(agents=[new_researcher], tasks=[task], process=Process.sequential)
 
-    cropio.takeoff()
+    cropio.ignite()
 
     # Verify task tools override agent tools
     assert len(task.tools) == 1  # AnotherTestTool
@@ -742,7 +742,7 @@ def test_task_tools_override_agent_tools_with_allow_delegation():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Inspect the call kwargs to verify the actual tools passed to execution
         _, kwargs = mock_execute_sync.call_args
@@ -788,7 +788,7 @@ def test_cropio_verbose_output(capsys):
         verbose=True,
     )
 
-    cropio.takeoff()
+    cropio.ignite()
     captured = capsys.readouterr()
     expected_strings = [
         "\x1b[1m\x1b[95m# Agent:\x1b[00m \x1b[1m\x1b[92mResearcher",
@@ -807,7 +807,7 @@ def test_cropio_verbose_output(capsys):
     # Now test with verbose set to False
     cropio.verbose = False
     cropio._logger = Logger(verbose=False)
-    cropio.takeoff()
+    cropio.ignite()
     captured = capsys.readouterr()
     assert captured.out == ""
 
@@ -845,7 +845,7 @@ def test_cache_hitting_between_agents():
 
     with patch.object(CacheHandler, "read") as read:
         read.return_value = "12"
-        cropio.takeoff()
+        cropio.ignite()
         assert read.call_count == 2, "read was not called exactly twice"
         # Check if read was called with the expected arguments
         expected_calls = [
@@ -888,14 +888,14 @@ def test_api_calls_throttling(capsys):
 
     with patch.object(RPMController, "_wait_for_next_minute") as moveon:
         moveon.return_value = True
-        cropio.takeoff()
+        cropio.ignite()
         captured = capsys.readouterr()
         assert "Max RPM reached, waiting for next minute to start." in captured.out
         moveon.assert_called()
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_cropio_takeoff_usage_metrics():
+def test_cropio_ignite_usage_metrics():
     inputs = [
         {"topic": "dog"},
         {"topic": "cat"},
@@ -915,7 +915,7 @@ def test_cropio_takeoff_usage_metrics():
     )
 
     cropio = Cropio(agents=[agent], tasks=[task])
-    results = cropio.takeoff_for_each(inputs=inputs)
+    results = cropio.ignite_for_each(inputs=inputs)
 
     assert len(results) == len(inputs)
     for result in results:
@@ -973,7 +973,7 @@ def test_sequential_async_task_execution_completion():
         tasks=[list_ideas, list_important_history, write_article],
     )
 
-    sequential_result = sequential_cropio.takeoff()
+    sequential_result = sequential_cropio.ignite()
     assert sequential_result.raw.startswith(
         "The history of artificial intelligence (AI) is marked by several pivotal events that have shaped the field into what it is today."
     )
@@ -1001,7 +1001,7 @@ def test_single_task_with_async_execution():
         tasks=[list_ideas],
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw.startswith(
         "- Ethical implications of AI in law enforcement and surveillance."
     )
@@ -1054,7 +1054,7 @@ def test_three_task_with_async_execution():
 
 @pytest.mark.asyncio
 @pytest.mark.vcr(filter_headers=["authorization"])
-async def test_cropio_async_takeoff():
+async def test_cropio_async_ignite():
     inputs = [
         {"topic": "dog"},
         {"topic": "cat"},
@@ -1088,8 +1088,8 @@ async def test_cropio_async_takeoff():
             pydantic=None,
         ),
     )
-    with patch.object(Cropio, "takeoff_async", return_value=mock_task_output):
-        results = await cropio.takeoff_for_each_async(inputs=inputs)
+    with patch.object(Cropio, "ignite_async", return_value=mock_task_output):
+        results = await cropio.ignite_for_each_async(inputs=inputs)
 
         assert len(results) == len(inputs)
         for result in results:
@@ -1151,15 +1151,15 @@ async def test_async_task_execution_call_count():
             Task, "execute_async", return_value=mock_future
         ) as mock_execute_async,
     ):
-        cropio.takeoff()
+        cropio.ignite()
 
         assert mock_execute_async.call_count == 2
         assert mock_execute_sync.call_count == 1
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_takeoff_for_each_single_input():
-    """Tests if takeoff_for_each works with a single input."""
+def test_ignite_for_each_single_input():
+    """Tests if ignite_for_each works with a single input."""
 
     inputs = [{"topic": "dog"}]
 
@@ -1176,14 +1176,14 @@ def test_takeoff_for_each_single_input():
     )
 
     cropio = Cropio(agents=[agent], tasks=[task])
-    results = cropio.takeoff_for_each(inputs=inputs)
+    results = cropio.ignite_for_each(inputs=inputs)
 
     assert len(results) == 1
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_takeoff_for_each_multiple_inputs():
-    """Tests if takeoff_for_each works with multiple inputs."""
+def test_ignite_for_each_multiple_inputs():
+    """Tests if ignite_for_each works with multiple inputs."""
 
     inputs = [
         {"topic": "dog"},
@@ -1204,14 +1204,14 @@ def test_takeoff_for_each_multiple_inputs():
     )
 
     cropio = Cropio(agents=[agent], tasks=[task])
-    results = cropio.takeoff_for_each(inputs=inputs)
+    results = cropio.ignite_for_each(inputs=inputs)
 
     assert len(results) == len(inputs)
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_takeoff_for_each_empty_input():
-    """Tests if takeoff_for_each handles an empty input list."""
+def test_ignite_for_each_empty_input():
+    """Tests if ignite_for_each handles an empty input list."""
     agent = Agent(
         role="{topic} Researcher",
         goal="Express hot takes on {topic}.",
@@ -1225,13 +1225,13 @@ def test_takeoff_for_each_empty_input():
     )
 
     cropio = Cropio(agents=[agent], tasks=[task])
-    results = cropio.takeoff_for_each(inputs=[])
+    results = cropio.ignite_for_each(inputs=[])
     assert results == []
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_takeoff_for_each_invalid_input():
-    """Tests if takeoff_for_each raises TypeError for invalid input types."""
+def test_ignite_for_each_invalid_input():
+    """Tests if ignite_for_each raises TypeError for invalid input types."""
 
     agent = Agent(
         role="{topic} Researcher",
@@ -1249,11 +1249,11 @@ def test_takeoff_for_each_invalid_input():
 
     with pytest.raises(TypeError):
         # Pass a string instead of a list
-        cropio.takeoff_for_each("invalid input")
+        cropio.ignite_for_each("invalid input")
 
 
-def test_takeoff_for_each_error_handling():
-    """Tests error handling in takeoff_for_each when takeoff raises an error."""
+def test_ignite_for_each_error_handling():
+    """Tests error handling in ignite_for_each when ignite raises an error."""
     from unittest.mock import patch
 
     inputs = [
@@ -1280,17 +1280,17 @@ def test_takeoff_for_each_error_handling():
 
     cropio = Cropio(agents=[agent], tasks=[task])
 
-    with patch.object(Cropio, "takeoff") as mock_takeoff:
-        mock_takeoff.side_effect = expected_outputs[:2] + [
-            Exception("Simulated takeoff error")
+    with patch.object(Cropio, "ignite") as mock_ignite:
+        mock_ignite.side_effect = expected_outputs[:2] + [
+            Exception("Simulated ignite error")
         ]
-        with pytest.raises(Exception, match="Simulated takeoff error"):
-            cropio.takeoff_for_each(inputs=inputs)
+        with pytest.raises(Exception, match="Simulated ignite error"):
+            cropio.ignite_for_each(inputs=inputs)
 
 
 @pytest.mark.asyncio
-async def test_takeoff_async_basic_functionality_and_output():
-    """Tests the basic functionality and output of takeoff_async."""
+async def test_ignite_async_basic_functionality_and_output():
+    """Tests the basic functionality and output of ignite_async."""
     from unittest.mock import patch
 
     inputs = {"topic": "dog"}
@@ -1313,18 +1313,18 @@ async def test_takeoff_async_basic_functionality_and_output():
         tasks=[task],
     )
 
-    expected_output = "This is a sample output from takeoff."
-    with patch.object(Cropio, "takeoff", return_value=expected_output) as mock_takeoff:
-        result = await cropio.takeoff_async(inputs)
+    expected_output = "This is a sample output from ignite."
+    with patch.object(Cropio, "ignite", return_value=expected_output) as mock_ignite:
+        result = await cropio.ignite_async(inputs)
 
         assert isinstance(result, str), "Result should be a string"
         assert result == expected_output, "Result should match expected output"
-        mock_takeoff.assert_called_once_with(inputs)
+        mock_ignite.assert_called_once_with(inputs)
 
 
 @pytest.mark.asyncio
-async def test_async_takeoff_for_each_async_basic_functionality_and_output():
-    """Tests the basic functionality and output of takeoff_for_each_async."""
+async def test_async_ignite_for_each_async_basic_functionality_and_output():
+    """Tests the basic functionality and output of ignite_for_each_async."""
     inputs = [
         {"topic": "dog"},
         {"topic": "cat"},
@@ -1350,27 +1350,27 @@ async def test_async_takeoff_for_each_async_basic_functionality_and_output():
         agent=agent,
     )
 
-    async def mock_takeoff_async(**kwargs):
+    async def mock_ignite_async(**kwargs):
         input_data = kwargs.get("inputs")
         index = [input_["topic"] for input_ in inputs].index(input_data["topic"])
         return expected_outputs[index]
 
     with patch.object(
-        Cropio, "takeoff_async", side_effect=mock_takeoff_async
-    ) as mock_takeoff_async:
+        Cropio, "ignite_async", side_effect=mock_ignite_async
+    ) as mock_ignite_async:
         cropio = Cropio(agents=[agent], tasks=[task])
 
-        results = await cropio.takeoff_for_each_async(inputs)
+        results = await cropio.ignite_for_each_async(inputs)
 
         assert len(results) == len(inputs)
         assert results == expected_outputs
         for input_data in inputs:
-            mock_takeoff_async.assert_any_call(inputs=input_data)
+            mock_ignite_async.assert_any_call(inputs=input_data)
 
 
 @pytest.mark.asyncio
-async def test_async_takeoff_for_each_async_empty_input():
-    """Tests if atakeoff_for_each_async handles an empty input list."""
+async def test_async_ignite_for_each_async_empty_input():
+    """Tests if aignite_for_each_async handles an empty input list."""
 
     agent = Agent(
         role="{topic} Researcher",
@@ -1391,7 +1391,7 @@ async def test_async_takeoff_for_each_async_empty_input():
     )
 
     # Call the function we are testing
-    results = await cropio.takeoff_for_each_async([])
+    results = await cropio.ignite_for_each_async([])
 
     # Assertion
     assert results == [], "Result should be an empty list when input is empty"
@@ -1423,7 +1423,7 @@ def test_set_agents_step_callback():
 
     with patch.object(Agent, "execute_task") as execute:
         execute.return_value = "ok"
-        cropio.takeoff()
+        cropio.ignite()
         assert researcher_agent.step_callback is not None
 
 
@@ -1460,7 +1460,7 @@ def test_dont_set_agents_step_callback_if_already_set():
 
     with patch.object(Agent, "execute_task") as execute:
         execute.return_value = "ok"
-        cropio.takeoff()
+        cropio.ignite()
         assert researcher_agent.step_callback is not cropio_callback
         assert researcher_agent.step_callback is agent_callback
 
@@ -1493,7 +1493,7 @@ def test_cropio_function_calling_llm():
     )
 
     cropio = Cropio(agents=[agent1], tasks=[essay])
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "Howdy!"
 
 
@@ -1522,11 +1522,11 @@ def test_task_with_no_arguments():
 
     cropio = Cropio(agents=[researcher], tasks=[task])
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "The total number of sales is 75."
 
 
-def test_code_execution_flag_adds_code_tool_upon_takeoff():
+def test_code_execution_flag_adds_code_tool_upon_ignite():
     from cropioai_tools import CodeInterpreterTool
 
     programmer = Agent(
@@ -1552,7 +1552,7 @@ def test_code_execution_flag_adds_code_tool_upon_takeoff():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Get the tools that were actually used in execution
         _, kwargs = mock_execute_sync.call_args
@@ -1582,7 +1582,7 @@ def test_delegation_is_not_enabled_if_there_are_only_one_agent():
 
     cropio = Cropio(agents=[researcher], tasks=[task])
 
-    cropio.takeoff()
+    cropio.ignite()
     assert task.tools == []
 
 
@@ -1599,7 +1599,7 @@ def test_agents_do_not_get_delegation_tools_with_there_is_only_one_agent():
 
     cropio = Cropio(agents=[agent], tasks=[task])
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "Howdy!"
     assert len(agent.tools) == 0
 
@@ -1642,7 +1642,7 @@ def test_agent_usage_metrics_are_captured_for_hierarchical_process():
         agents=[agent], tasks=[task], process=Process.hierarchical, manager_llm="gpt-4o"
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "Howdy!"
 
     assert result.token_usage == UsageMetrics(
@@ -1684,7 +1684,7 @@ def test_hierarchical_cropio_creation_tasks_with_agents():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Verify execute_sync was called once
         mock_execute_sync.assert_called_once()
@@ -1741,7 +1741,7 @@ def test_hierarchical_cropio_creation_tasks_with_async_execution():
     with patch.object(
         Task, "execute_async", return_value=mock_future
     ) as mock_execute_async:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Verify execute_async was called once
         mock_execute_async.assert_called_once()
@@ -1789,7 +1789,7 @@ def test_hierarchical_cropio_creation_tasks_with_sync_last():
         manager_llm="gpt-4o",
     )
 
-    cropio.takeoff()
+    cropio.ignite()
     assert cropio.manager_agent is not None
     assert cropio.manager_agent.tools is not None
     assert (
@@ -1849,7 +1849,7 @@ def test_cropio_inputs_interpolate_both_agents_and_tasks_diff():
                 wraps=task.interpolate_inputs_and_add_conversation_history,
             ) as interpolate_task_inputs:
                 execute.return_value = "ok"
-                cropio.takeoff(inputs={"topic": "AI", "points": 5})
+                cropio.ignite(inputs={"topic": "AI", "points": 5})
                 interpolate_agent_inputs.assert_called()
                 interpolate_task_inputs.assert_called()
 
@@ -1876,7 +1876,7 @@ def test_cropio_does_not_interpolate_without_inputs():
         with patch.object(
             Task, "interpolate_inputs_and_add_conversation_history"
         ) as interpolate_task_inputs:
-            cropio.takeoff()
+            cropio.ignite()
             interpolate_agent_inputs.assert_not_called()
             interpolate_task_inputs.assert_not_called()
 
@@ -1909,7 +1909,7 @@ def test_task_callback_on_cropio():
 
     with patch.object(Agent, "execute_task") as execute:
         execute.return_value = "ok"
-        cropio.takeoff()
+        cropio.ignite()
 
         assert list_ideas.callback is not None
         mock_callback.assert_called_once()
@@ -1980,7 +1980,7 @@ def test_tools_with_custom_caching():
         CacheHandler, "add", wraps=cropio._cache_handler.add
     ) as add_to_cache:
         with patch.object(CacheHandler, "read", wraps=cropio._cache_handler.read) as _:
-            result = cropio.takeoff()
+            result = cropio.ignite()
             add_to_cache.assert_called_once_with(
                 tool="multiplcation_tool",
                 input={"first_number": 2, "second_number": 6},
@@ -2013,7 +2013,7 @@ def test_using_contextual_memory():
     )
 
     with patch.object(ContextualMemory, "build_context_for_task") as contextual_mem:
-        cropio.takeoff()
+        cropio.ignite()
         contextual_mem.assert_called_once()
 
 
@@ -2041,7 +2041,7 @@ def test_disabled_memory_using_contextual_memory():
     )
 
     with patch.object(ContextualMemory, "build_context_for_task") as contextual_mem:
-        cropio.takeoff()
+        cropio.ignite()
         contextual_mem.assert_not_called()
 
 
@@ -2057,7 +2057,7 @@ def test_cropio_log_file_output(tmp_path):
     ]
 
     cropio = Cropio(agents=[researcher], tasks=tasks, output_log_file=str(test_file))
-    cropio.takeoff()
+    cropio.ignite()
     assert test_file.exists()
 
 
@@ -2087,7 +2087,7 @@ def test_cropio_output_file_end_to_end(tmp_path):
         tasks=[task],
         process=Process.sequential,
     )
-    cropio.takeoff(inputs={"topic": "AI"})
+    cropio.ignite(inputs={"topic": "AI"})
 
     # Verify file creation and cleanup
     expected_file = tmp_path / "output_AI.txt"
@@ -2111,7 +2111,7 @@ def test_cropio_output_file_validation_failures():
             agent=agent,
             output_file="../output.txt",
         )
-        Cropio(agents=[agent], tasks=[task]).takeoff()
+        Cropio(agents=[agent], tasks=[task]).ignite()
 
     # Test shell special characters
     with pytest.raises(ValueError, match="Shell special characters"):
@@ -2121,7 +2121,7 @@ def test_cropio_output_file_validation_failures():
             agent=agent,
             output_file="output.txt | rm -rf /",
         )
-        Cropio(agents=[agent], tasks=[task]).takeoff()
+        Cropio(agents=[agent], tasks=[task]).ignite()
 
     # Test shell expansion
     with pytest.raises(ValueError, match="Shell expansion"):
@@ -2131,7 +2131,7 @@ def test_cropio_output_file_validation_failures():
             agent=agent,
             output_file="~/output.txt",
         )
-        Cropio(agents=[agent], tasks=[task]).takeoff()
+        Cropio(agents=[agent], tasks=[task]).ignite()
 
     # Test invalid template variable
     with pytest.raises(ValueError, match="Invalid template variable"):
@@ -2141,7 +2141,7 @@ def test_cropio_output_file_validation_failures():
             agent=agent,
             output_file="{invalid-name}/output.txt",
         )
-        Cropio(agents=[agent], tasks=[task]).takeoff()
+        Cropio(agents=[agent], tasks=[task]).ignite()
 
 
 def test_manager_agent():
@@ -2177,7 +2177,7 @@ def test_manager_agent():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
         assert manager.allow_delegation is True
         mock_execute_sync.assert_called()
 
@@ -2233,15 +2233,15 @@ def test_manager_agent_with_tools_raises_exception():
     )
 
     with pytest.raises(Exception):
-        cropio.takeoff()
+        cropio.ignite()
 
 
-@patch("cropioai.cropio.Cropio.takeoff")
+@patch("cropioai.cropio.Cropio.ignite")
 @patch("cropioai.cropio.CropioTrainingHandler")
 @patch("cropioai.cropio.TaskEvaluator")
 @patch("cropioai.cropio.Cropio.copy")
 def test_cropio_train_success(
-    copy_mock, task_evaluator, cropio_training_handler, takeoff_mock
+    copy_mock, task_evaluator, cropio_training_handler, ignite_mock
 ):
     task = Task(
         description="Come up with a list of 5 interesting ideas to explore for an article, then write one amazing paragraph highlight for each idea that showcases how good an article about this topic could be. Return the list of ideas with their paragraph and your notes.",
@@ -2261,8 +2261,8 @@ def test_cropio_train_success(
         n_iterations=2, inputs={"topic": "AI"}, filename="trained_agents_data.pkl"
     )
 
-    # Ensure takeoff is called on the copied cropio
-    takeoff_mock.assert_has_calls(
+    # Ensure ignite is called on the copied cropio
+    ignite_mock.assert_has_calls(
         [mock.call(inputs={"topic": "AI"}), mock.call(inputs={"topic": "AI"})]
     )
 
@@ -2383,7 +2383,7 @@ def test_replay_feature():
             summary="Mocked output for list of ideas",
         )
 
-        cropio.takeoff()
+        cropio.ignite()
         cropio.replay(str(write.id))
         # Ensure context was passed correctly
         assert mock_execute_task.call_count == 3
@@ -2434,7 +2434,7 @@ def test_cropio_task_db_init():
             summary="Write about AI in healthcare...",
         )
 
-        cropio.takeoff()
+        cropio.ignite()
 
         # Check if this runs without raising an exception
         try:
@@ -2531,7 +2531,7 @@ def test_replay_task_with_context():
             mock_task_output4,
         ]
 
-        cropio.takeoff()
+        cropio.ignite()
         db_handler = TaskOutputStorageHandler()
         assert db_handler.load() != []
 
@@ -2685,7 +2685,7 @@ def test_replay_interpolates_inputs_properly(mock_interpolate_inputs):
     task1.output = context_output
 
     cropio = Cropio(agents=[agent], tasks=[task1, task2], process=Process.sequential)
-    cropio.takeoff(inputs={"name": "John"})
+    cropio.ignite(inputs={"name": "John"})
 
     with patch(
         "cropioai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
@@ -2893,7 +2893,7 @@ def test_conditional_task_last_task_when_conditional_is_true():
         agents=[researcher, writer],
         tasks=[task1, task2],
     )
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw.startswith(
         "Hi\n\nHere are five interesting ideas for articles focused on AI and AI agents, each accompanied by a compelling paragraph to showcase the potential impact and depth of each topic:"
     )
@@ -2920,7 +2920,7 @@ def test_conditional_task_last_task_when_conditional_is_false():
         agents=[researcher, writer],
         tasks=[task1, task2],
     )
-    result = cropio.takeoff()
+    result = cropio.ignite()
     assert result.raw == "Hi"
 
 
@@ -2970,7 +2970,7 @@ def test_conditional_should_skip():
             agent="Researcher",
         )
 
-        result = cropio_met.takeoff()
+        result = cropio_met.ignite()
         assert mock_execute_sync.call_count == 1
 
         assert condition_mock.call_count == 1
@@ -3004,7 +3004,7 @@ def test_conditional_should_execute():
             agent="Researcher",
         )
 
-        cropio_met.takeoff()
+        cropio_met.ignite()
 
         assert condition_mock.call_count == 1
         assert condition_mock() is True
@@ -3013,8 +3013,8 @@ def test_conditional_should_execute():
 
 @mock.patch("cropioai.cropio.CropioEvaluator")
 @mock.patch("cropioai.cropio.Cropio.copy")
-@mock.patch("cropioai.cropio.Cropio.takeoff")
-def test_cropio_testing_function(takeoff_mock, copy_mock, cropio_evaluator):
+@mock.patch("cropioai.cropio.Cropio.ignite")
+def test_cropio_testing_function(ignite_mock, copy_mock, cropio_evaluator):
     task = Task(
         description="Come up with a list of 5 interesting ideas to explore for an article, then write one amazing paragraph highlight for each idea that showcases how good an article about this topic could be. Return the list of ideas with their paragraph and your notes.",
         expected_output="5 bullet points with a paragraph for each idea.",
@@ -3032,8 +3032,8 @@ def test_cropio_testing_function(takeoff_mock, copy_mock, cropio_evaluator):
     n_iterations = 2
     cropio.test(n_iterations, openai_model_name="gpt-4o-mini", inputs={"topic": "AI"})
 
-    # Ensure takeoff is called on the copied cropio
-    takeoff_mock.assert_has_calls(
+    # Ensure ignite is called on the copied cropio
+    ignite_mock.assert_has_calls(
         [mock.call(inputs={"topic": "AI"}), mock.call(inputs={"topic": "AI"})]
     )
 
@@ -3062,7 +3062,7 @@ def test_hierarchical_verbose_manager_agent():
         verbose=True,
     )
 
-    cropio.takeoff()
+    cropio.ignite()
 
     assert cropio.manager_agent is not None
     assert cropio.manager_agent.verbose
@@ -3083,7 +3083,7 @@ def test_hierarchical_verbose_false_manager_agent():
         verbose=False,
     )
 
-    cropio.takeoff()
+    cropio.ignite()
 
     assert cropio.manager_agent is not None
     assert not cropio.manager_agent.verbose
@@ -3175,7 +3175,7 @@ def test_task_tools_preserve_code_execution_tools():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Get the tools that were actually used in execution
         _, kwargs = mock_execute_sync.call_args
@@ -3232,7 +3232,7 @@ def test_multimodal_flag_adds_multimodal_tools():
     with patch.object(
         Task, "execute_sync", return_value=mock_task_output
     ) as mock_execute_sync:
-        cropio.takeoff()
+        cropio.ignite()
 
         # Get the tools that were actually used in execution
         _, kwargs = mock_execute_sync.call_args
@@ -3296,7 +3296,7 @@ def test_multimodal_agent_image_tool_handling():
         mock_execute_sync.return_value = mock_task_output
 
         # Execute the cropio
-        cropio.takeoff()
+        cropio.ignite()
 
         # Get the tools that were passed to execute_sync
         _, kwargs = mock_execute_sync.call_args
@@ -3352,7 +3352,7 @@ def test_multimodal_agent_live_image_analysis():
     cropio = Cropio(agents=[image_analyst], tasks=[analyze_image])
 
     # Execute with an image URL
-    result = cropio.takeoff(
+    result = cropio.ignite(
         inputs={
             "image_url": "https://media.istockphoto.com/id/946087016/photo/aerial-view-of-lower-manhattan-new-york.jpg?s=612x612&w=0&k=20&c=viLiMRznQ8v5LzKTt_LvtfPFUVl1oiyiemVdSlm29_k="
         }
@@ -3408,7 +3408,7 @@ def test_cropio_with_failing_task_guardrails():
         tasks=[task],
     )
 
-    result = cropio.takeoff()
+    result = cropio.ignite()
 
     # Verify the final output meets all format requirements
     content = result.raw.strip()
@@ -3461,7 +3461,7 @@ def test_cropio_guardrail_feedback_in_context():
 
         mock_execute_task.side_effect = side_effect
 
-        result = cropio.takeoff()
+        result = cropio.ignite()
 
     # Verify that we had multiple executions
     assert len(execution_contexts) > 1, "Task should have been executed multiple times"
@@ -3479,8 +3479,8 @@ def test_cropio_guardrail_feedback_in_context():
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_before_takeoff_callback():
-    from cropioai.project import CropioBase, agent, before_takeoff, task
+def test_before_ignite_callback():
+    from cropioai.project import CropioBase, agent, before_ignite, task
 
     @CropioBase
     class TestCropioClass:
@@ -3492,7 +3492,7 @@ def test_before_takeoff_callback():
         def __init__(self):
             self.inputs_modified = False
 
-        @before_takeoff
+        @before_ignite
         def modify_inputs(self, inputs):
             self.inputs_modified = True
             inputs["modified"] = True
@@ -3523,23 +3523,23 @@ def test_before_takeoff_callback():
 
     test_cropio = test_cropio_instance.cropio()
 
-    # Verify that the before_takeoff_callbacks are set
-    assert len(test_cropio.before_takeoff_callbacks) == 1
+    # Verify that the before_ignite_callbacks are set
+    assert len(test_cropio.before_ignite_callbacks) == 1
 
     # Prepare inputs
     inputs = {"initial": True}
 
-    # Call takeoff
-    test_cropio.takeoff(inputs=inputs)
+    # Call ignite
+    test_cropio.ignite(inputs=inputs)
 
-    # Check that the before_takeoff function was called and modified inputs
+    # Check that the before_ignite function was called and modified inputs
     assert test_cropio_instance.inputs_modified
     assert inputs.get("modified")
 
 
 @pytest.mark.vcr(filter_headers=["authorization"])
-def test_before_takeoff_without_inputs():
-    from cropioai.project import CropioBase, agent, before_takeoff, task
+def test_before_ignite_without_inputs():
+    from cropioai.project import CropioBase, agent, before_ignite, task
 
     @CropioBase
     class TestCropioClass:
@@ -3552,7 +3552,7 @@ def test_before_takeoff_without_inputs():
             self.inputs_modified = False
             self.received_inputs = None
 
-        @before_takeoff
+        @before_ignite
         def modify_inputs(self, inputs):
             self.inputs_modified = True
             inputs["modified"] = True
@@ -3583,16 +3583,16 @@ def test_before_takeoff_without_inputs():
     test_cropio_instance = TestCropioClass()
     # Build the cropio
     test_cropio = test_cropio_instance.cropio()
-    # Verify that the before_takeoff_callback is registered
-    assert len(test_cropio.before_takeoff_callbacks) == 1
+    # Verify that the before_ignite_callback is registered
+    assert len(test_cropio.before_ignite_callbacks) == 1
 
-    # Call takeoff without passing inputs
-    test_cropio.takeoff()
+    # Call ignite without passing inputs
+    test_cropio.ignite()
 
-    # Check that the before_takeoff function was called
+    # Check that the before_ignite function was called
     assert test_cropio_instance.inputs_modified
 
-    # Verify that the inputs were initialized and modified inside the before_takeoff method
+    # Verify that the inputs were initialized and modified inside the before_ignite method
     assert test_cropio_instance.received_inputs is not None
     assert test_cropio_instance.received_inputs.get("modified") is True
 

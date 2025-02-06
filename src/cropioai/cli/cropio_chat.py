@@ -283,7 +283,7 @@ def generate_cropio_tool_schema(cropio_inputs: ChatInputs) -> dict:
 
 def run_cropio_tool(cropio: Cropio, messages: List[Dict[str, str]], **kwargs):
     """
-    Runs the cropio using cropio.takeoff(inputs=kwargs) and returns the output.
+    Runs the cropio using cropio.ignite(inputs=kwargs) and returns the output.
 
     Args:
         cropio (Cropio): The cropio instance to run.
@@ -301,7 +301,7 @@ def run_cropio_tool(cropio: Cropio, messages: List[Dict[str, str]], **kwargs):
         kwargs["cropio_chat_messages"] = json.dumps(messages)
 
         # Run the cropio with the provided inputs
-        cropio_output = cropio.takeoff(inputs=kwargs)
+        cropio_output = cropio.ignite(inputs=kwargs)
 
         # Convert CropioOutput to a string to send back to the user
         result = str(cropio_output)

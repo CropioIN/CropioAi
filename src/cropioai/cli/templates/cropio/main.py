@@ -23,7 +23,7 @@ def run():
     }
     
     try:
-        {{cropio_name}}().cropio().takeoff(inputs=inputs)
+        {{cropio_name}}().cropio().ignite(inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while running the cropio: {e}")
 

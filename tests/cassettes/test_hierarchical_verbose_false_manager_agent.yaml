@@ -47,7 +47,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.cropio.in/v1/traces
+    uri: https://telemetry.cropio.in:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -353,7 +353,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.cropio.in/v1/traces
+    uri: https://telemetry.cropio.in:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -823,7 +823,7 @@ interactions:
       x-ratelimit-reset-tokens:
       - 2ms
       x-request-id:
-      - req_c6352d3950.0.8d756c35a45b074b424
+      - req_c6352d39509076d756c35a45b074b424
     http_version: HTTP/1.1
     status_code: 200
 - request:
@@ -1041,7 +1041,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.cropio.in/v1/traces
+    uri: https://telemetry.cropio.in:4319/v1/traces
   response:
     body:
       string: "\n\0"

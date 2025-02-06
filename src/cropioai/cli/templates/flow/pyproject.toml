@@ -5,11 +5,11 @@ description = "{{name}} using cropioAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<3.13"
 dependencies = [
-    "cropioai[tools]>=0.0.9,<1.0.0",
+    "cropioai[tools]>=0.1.0,<1.0.0",
 ]
 
 [project.scripts]
-takeoff = "{{folder_name}}.main:takeoff"
+ignite = "{{folder_name}}.main:ignite"
 plot = "{{folder_name}}.main:plot"
 
 [build-system]

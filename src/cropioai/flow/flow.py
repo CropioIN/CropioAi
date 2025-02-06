@@ -699,7 +699,7 @@ class Flow(Generic[T], metaclass=FlowMeta):
         else:
             raise TypeError(f"State must be dict or BaseModel, got {type(self._state)}")
 
-    def takeoff(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
+    def ignite(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
         """Start the flow execution.
 
         Args:
@@ -742,9 +742,9 @@ class Flow(Generic[T], metaclass=FlowMeta):
         if inputs is not None and 'id' not in inputs:
             self._initialize_state(inputs)
 
-        return asyncio.run(self.takeoff_async())
+        return asyncio.run(self.ignite_async())
 
-    async def takeoff_async(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
+    async def ignite_async(self, inputs: Optional[Dict[str, Any]] = None) -> Any:
         if not self._start_methods:
             raise ValueError("No start method defined")
 
@@ -993,7 +993,7 @@ class Flow(Generic[T], metaclass=FlowMeta):
         Args:
             message: The message to log
             color: Color to use for console output (default: yellow)
-                  Available colors: purple, red, bold_green, bold_orange,
+                  Available colors: purple, red, bold_green, bold_purple,
                   bold_blue, yellow, yellow
             level: Log level to use (default: info)
                   Supported levels: info, warning

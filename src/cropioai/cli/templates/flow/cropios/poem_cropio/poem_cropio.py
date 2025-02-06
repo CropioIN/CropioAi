@@ -2,7 +2,7 @@ from cropioai import Agent, Cropio, Process, Task
 from cropioai.project import CropioBase, agent, cropio, task
 
 # If you want to run a snippet of code before or after the cropio starts,
-# you can use the @before_takeoff and @after_takeoff decorators
+# you can use the @before_ignite and @after_ignite decorators
 # https://docs.cropio.in/concepts/cropios#example-cropio-class-with-decorators
 
 

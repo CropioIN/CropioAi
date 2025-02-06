@@ -43,9 +43,9 @@ def CropioBase(cls: T) -> T:
                     for attr in [
                         "is_task",
                         "is_agent",
-                        "is_before_takeoff",
-                        "is_after_takeoff",
-                        "is_takeoff",
+                        "is_before_ignite",
+                        "is_after_ignite",
+                        "is_ignite",
                     ]
                 )
             }
@@ -56,14 +56,14 @@ def CropioBase(cls: T) -> T:
             self._original_agents = self._filter_functions(
                 self._original_functions, "is_agent"
             )
-            self._before_takeoff = self._filter_functions(
-                self._original_functions, "is_before_takeoff"
+            self._before_ignite = self._filter_functions(
+                self._original_functions, "is_before_ignite"
             )
-            self._after_takeoff = self._filter_functions(
-                self._original_functions, "is_after_takeoff"
+            self._after_ignite = self._filter_functions(
+                self._original_functions, "is_after_ignite"
             )
-            self._takeoff = self._filter_functions(
-                self._original_functions, "is_takeoff"
+            self._ignite = self._filter_functions(
+                self._original_functions, "is_ignite"
             )
 
         def load_configurations(self):

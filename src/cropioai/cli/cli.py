@@ -8,15 +8,15 @@ from cropioai.cli.add_cropio_to_flow import add_cropio_to_flow
 from cropioai.cli.create_cropio import create_cropio
 from cropioai.cli.create_flow import create_flow
 from cropioai.cli.cropio_chat import run_chat
-from cropioai.memory.storage.takeoff_task_outputs_storage import (
-    TakeoffTaskOutputsSQLiteStorage,
+from cropioai.memory.storage.ignite_task_outputs_storage import (
+    IgniteTaskOutputsSQLiteStorage,
 )
 
 from .authentication.main import AuthenticationCommand
 from .deploy.main import DeployCommand
 from .evaluate_cropio import evaluate_cropio
 from .install_cropio import install_cropio
-from .takeoff_flow import takeoff_flow
+from .ignite_flow import ignite_flow
 from .plot_flow import plot_flow
 from .replay_from_task import replay_task_command
 from .reset_memories_command import reset_memories_command
@@ -32,7 +32,7 @@ def cropioai():
     """Top-level command group for cropioai."""
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.argument("type", type=click.Choice(["cropio", "flow"]))
 @click.argument("name")
 @click.option("--provider", type=str, help="The provider to use for the cropio")
@@ -47,7 +47,7 @@ def create(type, name, provider, skip_provider=False):
         click.secho("Error: Invalid type. Must be 'cropio' or 'flow'.", fg="red")
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.option(
     "--tools", is_flag=True, help="Show the installed version of cropioai tools"
 )
@@ -67,7 +67,7 @@ def version(tools):
             click.echo("cropioai tools not installed")
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.option(
     "-n",
     "--n_iterations",
@@ -88,7 +88,7 @@ def train(n_iterations: int, filename: str):
     train_cropio(n_iterations, filename)
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.option(
     "-t",
     "--task_id",
@@ -109,18 +109,18 @@ def replay(task_id: str) -> None:
         click.echo(f"An error occurred while replaying: {e}", err=True)
 
 
-@cropio.inmand()
+@cropioai.command()
 def log_tasks_outputs() -> None:
     """
-    Retrieve your latest cropio.takeoff() task outputs.
+    Retrieve your latest cropio.ignite() task outputs.
     """
     try:
-        storage = TakeoffTaskOutputsSQLiteStorage()
+        storage = IgniteTaskOutputsSQLiteStorage()
         tasks = storage.load()
 
         if not tasks:
             click.echo(
-                "No task outputs found. Only cropio takeoff task outputs are logged."
+                "No task outputs found. Only cropio ignite task outputs are logged."
             )
             return
 
@@ -133,16 +133,16 @@ def log_tasks_outputs() -> None:
         click.echo(f"An error occurred while logging task outputs: {e}", err=True)
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.option("-l", "--long", is_flag=True, help="Reset LONG TERM memory")
 @click.option("-s", "--short", is_flag=True, help="Reset SHORT TERM memory")
 @click.option("-e", "--entities", is_flag=True, help="Reset ENTITIES memory")
 @click.option("-kn", "--knowledge", is_flag=True, help="Reset KNOWLEDGE storage")
 @click.option(
     "-k",
-    "--takeoff-outputs",
+    "--ignite-outputs",
     is_flag=True,
-    help="Reset LATEST TAKEOFF TASK OUTPUTS",
+    help="Reset LATEST KICKOFF TASK OUTPUTS",
 )
 @click.option("-a", "--all", is_flag=True, help="Reset ALL memories")
 def reset_memories(
@@ -150,24 +150,24 @@ def reset_memories(
     short: bool,
     entities: bool,
     knowledge: bool,
-    takeoff_outputs: bool,
+    ignite_outputs: bool,
     all: bool,
 ) -> None:
     """
-    Reset the cropio memories (long, short, entity, latest_cropio_takeoff_ouputs). This will delete all the data saved.
+    Reset the cropio memories (long, short, entity, latest_cropio_ignite_ouputs). This will delete all the data saved.
     """
     try:
-        if not all and not (long or short or entities or knowledge or takeoff_outputs):
+        if not all and not (long or short or entities or knowledge or ignite_outputs):
             click.echo(
                 "Please specify at least one memory type to reset using the appropriate flags."
             )
             return
-        reset_memories_command(long, short, entities, knowledge, takeoff_outputs, all)
+        reset_memories_command(long, short, entities, knowledge, ignite_outputs, all)
     except Exception as e:
         click.echo(f"An error occurred while resetting memories: {e}", err=True)
 
 
-@cropio.inmand()
+@cropioai.command()
 @click.option(
     "-n",
     "--n_iterations",
@@ -188,7 +188,7 @@ def test(n_iterations: int, model: str):
     evaluate_cropio(n_iterations, model)
 
 
-@cropio.inmand(
+@cropioai.command(
     context_settings=dict(
         ignore_unknown_options=True,
         allow_extra_args=True,
@@ -200,26 +200,26 @@ def install(context):
     install_cropio(context.args)
 
 
-@cropio.inmand()
+@cropioai.command()
 def run():
     """Run the Cropio."""
     click.echo("Running the Cropio")
     run_cropio()
 
 
-@cropio.inmand()
+@cropioai.command()
 def update():
     """Update the pyproject.toml of the Cropio project to use uv."""
     update_cropio()
 
 
-@cropio.inmand()
+@cropioai.command()
 def signup():
     """Sign Up/Login to CropioAI+."""
     AuthenticationCommand().signup()
 
 
-@cropio.inmand()
+@cropioai.command()
 def login():
     """Sign Up/Login to CropioAI+."""
     AuthenticationCommand().signup()
@@ -322,11 +322,11 @@ def flow():
     pass
 
 
-@flow.command(name="takeoff")
+@flow.command(name="ignite")
 def flow_run():
-    """Takeoff the Flow."""
+    """Ignite the Flow."""
     click.echo("Running the Flow")
-    takeoff_flow()
+    ignite_flow()
 
 
 @flow.command(name="plot")
@@ -344,7 +344,7 @@ def flow_add_cropio(cropio_name):
     add_cropio_to_flow(cropio_name)
 
 
-@cropio.inmand()
+@cropioai.command()
 def chat():
     """
     Start a conversation with the Cropio, collecting user-supplied inputs,

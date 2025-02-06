@@ -2,7 +2,7 @@ site_name: cropioAI
 site_author: cropioAI, Inc
 site_description: Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks.
 repo_name: cropioAI
-repo_url: https://github.com/CropioIN/cropioAI
+repo_url: https://github.com/cropioIN/cropioAI
 site_url: https://docs.cropio.in
 edit_uri: edit/main/docs/
 copyright: Copyright &copy; 2024 cropioAI, Inc
@@ -145,9 +145,9 @@ nav:
     - Coding Agents: 'how-to/Coding-Agents.md'
     - Forcing Tool Output as Result: 'how-to/Force-Tool-Ouput-as-Result.md'
     - Human Input on Execution: 'how-to/Human-Input-on-Execution.md'
-    - Takeoff a Cropio Asynchronously: 'how-to/Takeoff-async.md'
-    - Takeoff a Cropio for a List: 'how-to/Takeoff-for-each.md'
-    - Replay from a specific task from a takeoff: 'how-to/Replay-tasks-from-latest-Cropio-Takeoff.md'
+    - Ignite a Cropio Asynchronously: 'how-to/Ignite-async.md'
+    - Ignite a Cropio for a List: 'how-to/Ignite-for-each.md'
+    - Replay from a specific task from a ignite: 'how-to/Replay-tasks-from-latest-Cropio-Ignite.md'
     - Conditional Tasks: 'how-to/Conditional-Tasks.md'
     - Agent Monitoring with AgentOps: 'how-to/AgentOps-Observability.md'
     - Agent Monitoring with LangTrace: 'how-to/Langtrace-Observability.md'
@@ -194,7 +194,7 @@ nav:
     - Landing Page Generator: https://github.com/joaomdmoura/cropioAI-examples/tree/main/landing_page_generator"
     - Prepare for meetings: https://github.com/joaomdmoura/cropioAI-examples/tree/main/prep-for-a-meeting"
   - Telemetry: 'telemetry/Telemetry.md'
-  - Change Log: 'https://github.com/CropioIN/cropioAI/releases'
+  - Change Log: 'https://github.com/cropioIN/cropioAI/releases'
 
 extra_css:
   - stylesheets/output.css
@@ -210,6 +210,6 @@ extra:
     property: G-N3Q505TMQ6
   social:
     - icon: fontawesome/brands/x-twitter
-      link: https://x.com/CropioIN
+      link: https://x.com/cropioIN
     - icon: fontawesome/brands/github
-      link: https://github.com/CropioIN/cropioAI
+      link: https://github.com/cropioIN/cropioAI

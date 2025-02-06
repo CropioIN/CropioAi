@@ -101,7 +101,7 @@ class Cropio(BaseModel):
     _train_iteration: Optional[int] = PrivateAttr()
     _inputs: Optional[Dict[str, Any]] = PrivateAttr(default=None)
     _logging_color: str = PrivateAttr(
-        default="bold_orange",
+        default="bold_purple",
     )
     _task_output_handler: TaskOutputStorageHandler = PrivateAttr(
         default_factory=TaskOutputStorageHandler
@@ -165,15 +165,15 @@ class Cropio(BaseModel):
         default=None,
         description="Callback to be executed after each task for all agents execution.",
     )
-    before_takeoff_callbacks: List[
+    before_ignite_callbacks: List[
         Callable[[Optional[Dict[str, Any]]], Optional[Dict[str, Any]]]
     ] = Field(
         default_factory=list,
-        description="List of callbacks to be executed before cropio takeoff. It may be used to adjust inputs before the cropio is executed.",
+        description="List of callbacks to be executed before cropio ignite. It may be used to adjust inputs before the cropio is executed.",
     )
-    after_takeoff_callbacks: List[Callable[[CropioOutput], CropioOutput]] = Field(
+    after_ignite_callbacks: List[Callable[[CropioOutput], CropioOutput]] = Field(
         default_factory=list,
-        description="List of callbacks to be executed after cropio takeoff. It may be used to adjust the output of the cropio.",
+        description="List of callbacks to be executed after cropio ignite. It may be used to adjust the output of the cropio.",
     )
     max_rpm: Optional[int] = Field(
         default=None,
@@ -497,7 +497,7 @@ class Cropio(BaseModel):
         try:
             for n_iteration in range(n_iterations):
                 train_cropio._train_iteration = n_iteration
-                train_cropio.takeoff(inputs=inputs)
+                train_cropio.ignite(inputs=inputs)
 
             training_data = CropioTrainingHandler(TRAINING_DATA_FILE).load()
 
@@ -515,11 +515,11 @@ class Cropio(BaseModel):
             CropioTrainingHandler(filename).clear()
             raise
 
-    def takeoff(
+    def ignite(
         self,
         inputs: Optional[Dict[str, Any]] = None,
     ) -> CropioOutput:
-        for before_callback in self.before_takeoff_callbacks:
+        for before_callback in self.before_ignite_callbacks:
             if inputs is None:
                 inputs = {}
             inputs = before_callback(inputs)
@@ -527,7 +527,7 @@ class Cropio(BaseModel):
         """Starts the cropio to work on its assigned tasks."""
         self._execution_span = self._telemetry.cropio_execution_span(self, inputs)
         self._task_output_handler.reset()
-        self._logging_color = "bold_orange"
+        self._logging_color = "bold_purple"
 
         if inputs is not None:
             self._inputs = inputs
@@ -563,7 +563,7 @@ class Cropio(BaseModel):
                 f"The process '{self.process}' is not implemented yet."
             )
 
-        for after_callback in self.after_takeoff_callbacks:
+        for after_callback in self.after_ignite_callbacks:
             result = after_callback(result)
 
         metrics += [agent._token_process.get_summary() for agent in self.agents]
@@ -574,7 +574,7 @@ class Cropio(BaseModel):
 
         return result
 
-    def takeoff_for_each(self, inputs: List[Dict[str, Any]]) -> List[CropioOutput]:
+    def ignite_for_each(self, inputs: List[Dict[str, Any]]) -> List[CropioOutput]:
         """Executes the Cropio's workflow for each input in the list and aggregates results."""
         results: List[CropioOutput] = []
 
@@ -584,7 +584,7 @@ class Cropio(BaseModel):
         for input_data in inputs:
             cropio = self.copy()
 
-            output = cropio.takeoff(inputs=input_data)
+            output = cropio.ignite(inputs=input_data)
 
             if cropio.usage_metrics:
                 total_usage_metrics.add_usage_metrics(cropio.usage_metrics)
@@ -595,15 +595,15 @@ class Cropio(BaseModel):
         self._task_output_handler.reset()
         return results
 
-    async def takeoff_async(self, inputs: Optional[Dict[str, Any]] = {}) -> CropioOutput:
-        """Asynchronous takeoff method to start the cropio execution."""
-        return await asyncio.to_thread(self.takeoff, inputs)
+    async def ignite_async(self, inputs: Optional[Dict[str, Any]] = {}) -> CropioOutput:
+        """Asynchronous ignite method to start the cropio execution."""
+        return await asyncio.to_thread(self.ignite, inputs)
 
-    async def takeoff_for_each_async(self, inputs: List[Dict]) -> List[CropioOutput]:
+    async def ignite_for_each_async(self, inputs: List[Dict]) -> List[CropioOutput]:
         cropio_copies = [self.copy() for _ in inputs]
 
         async def run_cropio(cropio, input_data):
-            return await cropio.takeoff_async(inputs=input_data)
+            return await cropio.ignite_async(inputs=input_data)
 
         tasks = [
             asyncio.create_task(run_cropio(cropio_copies[i], inputs[i]))
@@ -914,7 +914,7 @@ class Cropio(BaseModel):
     def _create_cropio_output(self, task_outputs: List[TaskOutput]) -> CropioOutput:
         if len(task_outputs) != 1:
             raise ValueError(
-                "Something went wrong. Takeoff should return only one task output."
+                "Something went wrong. Ignite should return only one task output."
             )
         final_task_output = task_outputs[0]
         final_string_output = final_task_output.raw
@@ -1146,7 +1146,7 @@ class Cropio(BaseModel):
 
         for i in range(1, n_iterations + 1):
             evaluator.set_iteration(i)
-            test_cropio.takeoff(inputs=inputs)
+            test_cropio.ignite(inputs=inputs)
 
         evaluator.print_cropio_evaluation_result()
 
