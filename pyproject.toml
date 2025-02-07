@@ -1,6 +1,6 @@
 [project]
 name = "cropioai"
-version = "0.3.0"
+version = "0.4.0"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CropioAI empowers agents to work together seamlessly, tackling complex tasks."
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
@@ -49,7 +49,7 @@ tools = ["cropioai-tools>=0.0.16"]
 embeddings = [
     "tiktoken~=0.7.0"
 ]
-agentops = ["agentops>=0.3.0"]
+agentops = ["agentops>=0.4.0"]
 fastembed = ["fastembed>=0.4.1"]
 pdfplumber = [
     "pdfplumber>=0.11.4",

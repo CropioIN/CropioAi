@@ -301,13 +301,13 @@ class CropioAgentExecutor(CropioAgentExecutorMixin):
         ):
             agent_role = self.agent.role.split("\n")[0]
             self._printer.print(
-                content=f"\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                content=f"[bold_orange]Agent:[/bold_orange] [bold_lime]{agent_role}[/bold_lime]"
             )
             description = (
                 getattr(self.task, "description") if self.task else "Not Found"
             )
             self._printer.print(
-                content=f"\033[95m## Task:\033[00m \033[92m{description}\033[00m"
+                content=f"[bold_blue]Task:[/bold_blue] [bold_lime]{description}[/bold_lime]"
             )
 
     def _show_logs(self, formatted_answer: Union[AgentAction, AgentFinish]):
@@ -325,27 +325,27 @@ class CropioAgentExecutor(CropioAgentExecutorMixin):
                     ensure_ascii=False,
                 )
                 self._printer.print(
-                    content=f"\n\n\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                    content=f"[bold_orange]Agent:[/bold_orange] [bold_lime]{agent_role}[/bold_lime]"
                 )
                 if thought and thought != "":
                     self._printer.print(
-                        content=f"\033[95m## Thought:\033[00m \033[92m{thought}\033[00m"
+                        content=f"[bold_cyan]Thought:[/bold_cyan] [bold_yellow]{thought}[/bold_yellow]"
                     )
                 self._printer.print(
-                    content=f"\033[95m## Using tool:\033[00m \033[92m{formatted_answer.tool}\033[00m"
+                    content=f"[bold_cyan]Using tool:[/bold_cyan] [bold_orange]{formatted_answer.tool}[/bold_orange]"
                 )
                 self._printer.print(
-                    content=f"\033[95m## Tool Input:\033[00m \033[92m\n{formatted_json}\033[00m"
+                    content=f"[bold_orange]Tool Input:[/bold_orange] [bold_yellow]{formatted_json}[/bold_yellow]"
                 )
                 self._printer.print(
-                    content=f"\033[95m## Tool Output:\033[00m \033[92m\n{formatted_answer.result}\033[00m"
+                    content=f"[bold_orange]Tool Output:[/bold_orange]\n[bold_yellow]{formatted_answer.result}[/bold_yellow]"
                 )
             elif isinstance(formatted_answer, AgentFinish):
                 self._printer.print(
-                    content=f"\n\n\033[1m\033[95m# Agent:\033[00m \033[1m\033[92m{agent_role}\033[00m"
+                    content=f"[bold_orange]Agent:[/bold_orange] [bold_lime]{agent_role}[/bold_lime]"
                 )
                 self._printer.print(
-                    content=f"\033[95m## Final Answer:\033[00m \033[92m\n{formatted_answer.output}\033[00m\n\n"
+                    content=f"[bold_green]Final Answer:[/bold_green]\n[yellow]{formatted_answer.output}[/yellow]\n\n"
                 )
 
     def _execute_tool_and_check_finality(self, agent_action: AgentAction) -> ToolResult:

@@ -1,8 +1,7 @@
 """Utility for colored console output."""
 
 from typing import Optional
-
-
+import re
 class Printer:
     """Handles colored console output formatting."""
     
@@ -37,6 +36,11 @@ class Printer:
             """Constructs and prints the ANSI formatted text."""
             code_str = ";".join(codes)
             print(f"{self.ESC}{code_str}m{content}{self.RESET}")
+
+        def format_ansi(self, codes, content) -> str:
+            """Returns the ANSI formatted string (instead of printing it)."""
+            code_str = ";".join(codes)
+            return f"{self.ESC}{code_str}m{content}{self.RESET}"
 
         def print_color(self, content, color="white", style=None):
             """Prints text in the standard 16-color mode with an optional single style."""
@@ -125,7 +129,7 @@ class Printer:
         # Instantiate the nested RichColorPrinter for use.
         self.rcp = self.RichColorPrinter()
         # Define base color data.
-        # For standard colors, the "value" is a string that corresponds to a key in RichColorPrinter.COLORS.
+        # For standard colors, the "value" is a string corresponding to a key in RichColorPrinter.COLORS.
         # For additional colors, the "value" is an RGB tuple and the mode is set to "rgb".
         base_mapping = {
             "purple":  {"value": "magenta", "mode": "standard"},
@@ -157,14 +161,124 @@ class Printer:
     
     def print(self, content: str, color: Optional[str] = None):
         """
-        Prints the provided content using preset formatting based on the given color name.
-        Supported color names include base names and variants such as:
-          - "red", "red_underline", "bold_red", "bold_red_underline"
-          - "orange", "orange_underline", "bold_orange", "bold_orange_underline"
-          - "violet", "violet_underline", "bold_violet", "bold_violet_underline"
-          - ...and similarly for purple, green, blue, yellow, cyan, magenta, pink, lime, and teal.
+        Prints the provided content using either inline markup or a preset color mapping.
+        You can pass a default color via the `color` parameter. For example:
+          - p.print("Hello World", color="bold_red")
+          - p.print("[bold_lime]Agent:[/bold_lime] says hi", color="blue")
+          
+        When markup is detected in the content, any text outside of tags is formatted using the provided default color.
         """
-        if color and color in self.mapping:
+        # If the content contains markup, process it with a default color for untagged segments.
+        if "[" in content and "]" in content:
+            formatted = self.format_markup(content, default_color=color)
+            print(formatted)
+        # Otherwise, if a color is provided and known, use that mapping.
+        elif color and color in self.mapping:
             self.mapping[color](content)
         else:
             print(content)
+    
+    def print_markup(self, content: str):
+        """Parses content containing tags like [bold_orange]…[/bold_orange] and prints it."""
+        formatted = self.format_markup(content)
+        print(formatted)
+    
+    def format_markup(self, content: str, default_color: Optional[str] = None) -> str:
+        """
+        Replaces any [tag]...[/tag] occurrences in the content with the appropriate
+        ANSI escape sequences so that the text is printed with the intended style.
+        Any text not wrapped in a tag is wrapped with the ANSI code corresponding
+        to `default_color` (if provided and valid).
+        """
+        result = ""
+        last_end = 0
+        # Regex to capture markup tags like [tag]...[/tag]
+        pattern = re.compile(r'\[([\w_]+)\](.*?)\[/\1\]', flags=re.DOTALL)
+        for match in pattern.finditer(content):
+            start, end = match.span()
+            # Process text before the tag.
+            pre_text = content[last_end:start]
+            if pre_text:
+                if default_color and default_color in self.mapping:
+                    pre_text = self.rcp.format_ansi(
+                        [self.rcp.COLORS.get(default_color, self.rcp.COLORS["white"])],
+                        pre_text
+                    )
+                result += pre_text
+            # Process the tagged segment.
+            tag = match.group(1)
+            inner_text = match.group(2)
+            # _parse_tag returns (color, style, extra_styles, mode)
+            color_parsed, style, extra_styles, mode = self._parse_tag(tag)
+            if mode == "standard":
+                codes = [self.rcp.COLORS.get(color_parsed, self.rcp.COLORS["white"])]
+                if style:
+                    codes.append(self.rcp.FORMATS.get(style))
+                for s in extra_styles:
+                    if s != style:  # avoid duplicate if already added
+                        codes.append(self.rcp.FORMATS.get(s))
+                result += self.rcp.format_ansi(codes, inner_text)
+            elif mode == "rgb":
+                if isinstance(color_parsed, tuple):
+                    codes = [f"38;2;{color_parsed[0]};{color_parsed[1]};{color_parsed[2]}"]
+                    result += self.rcp.format_ansi(codes, inner_text)
+                else:
+                    result += inner_text
+            else:
+                result += inner_text
+            last_end = end
+        # Process any trailing text after the last tag.
+        if last_end < len(content):
+            tail = content[last_end:]
+            if default_color and default_color in self.mapping:
+                tail = self.rcp.format_ansi(
+                    [self.rcp.COLORS.get(default_color, self.rcp.COLORS["white"])],
+                    tail
+                )
+            result += tail
+        return result
+
+    def _parse_tag(self, tag: str):
+        """
+        Given a tag string (for example "bold_orange_underline" or "bold"),
+        determine the color, the primary style (if any), extra styles, and the mode.
+        For a bare [bold] tag we default to white.
+        """
+        # Defaults
+        mode = "standard"
+        color = "white"
+        style = None
+        extra_styles = []
+        # Special case: if the tag is exactly "bold"
+        if tag == "bold":
+            style = "bold"
+            return color, style, extra_styles, mode
+        # Check for a "bold_" prefix.
+        if tag.startswith("bold_"):
+            extra_styles.append("bold")
+            tag = tag[len("bold_"):]
+        # Check for an "_underline" suffix.
+        if tag.endswith("_underline"):
+            extra_styles.append("underline")
+            tag = tag[:-len("_underline")]
+        # Now decide on the color and mode.
+        if tag in self.rcp.COLORS:
+            color = tag
+            mode = "standard"
+        elif tag in {"purple", "red", "green", "blue", "yellow", "cyan", "magenta"}:
+            color = tag
+            mode = "standard"
+        elif tag in {"orange", "pink", "lime", "teal", "violet"}:
+            rgb_mapping = {
+                "orange": (255, 165, 0),
+                "pink": (255, 192, 203),
+                "lime": (0, 255, 0),
+                "teal": (0, 128, 128),
+                "violet": (238, 130, 238)
+            }
+            color = rgb_mapping[tag]
+            mode = "rgb"
+        else:
+            color = "white"
+            mode = "standard"
+        return color, style, extra_styles, mode
